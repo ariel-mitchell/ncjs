@@ -8,13 +8,13 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
-@Controller
-@RequestMapping("login/")
-
-public class LoginController extends TravelDiaryApplication {
-
-    private final String USERNAME = "username";
-    private final String PASSWORD = "password";
-
-}
+//
+//@Controller
+//@RequestMapping("login/")
+//
+//public class LoginController extends TravelDiaryApplication {
+//
+//    private final String USERNAME = "username";
+//    private final String PASSWORD = "password";
+//
+//}
