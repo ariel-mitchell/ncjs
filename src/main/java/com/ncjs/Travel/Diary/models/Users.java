@@ -7,13 +7,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 
 @Entity
-public class User extends AbstractEntity {
+public class Users extends AbstractEntity {
 
     @NotBlank(message = "User Name is required.")
     @NotNull(message = "User Name is required.")
@@ -39,10 +35,10 @@ public class User extends AbstractEntity {
 
 
     // constructors
-    public User() {}
+    public Users() {}
 
     // Initialize the id and value fields.
-    public User(Integer userId, String userName, String password, String email, Boolean verified) {
+    public Users(Integer userId, String userName, String password, String email, Boolean verified) {
         super();
 //        if (Objects.equals(password, confirmPassword)) {
 // TODO how do I get the id from super into this.userId or do I have to just call the field "id"?
@@ -58,6 +54,7 @@ public class User extends AbstractEntity {
     }
 
     // getters and setters
+
     public String getUsername( ) { return userName; }
 
     public void setUsername(String userName) { this.userName = userName; }
@@ -69,5 +66,9 @@ public class User extends AbstractEntity {
     public String getEmail( ) { return email; }
 
     public void setEmail(String email) { this.email = email; }
+
+    public Boolean getVerified( ) { return verified; }
+
+    public void setVerified(Boolean verified) { this.verified = verified; }
 
 }

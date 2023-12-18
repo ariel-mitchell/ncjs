@@ -1,13 +1,11 @@
 package com.ncjs.Travel.Diary.controllers;
 
-import com.ncjs.Travel.Diary.TravelDiaryApplication;
-import com.ncjs.Travel.Diary.models.User;
+import com.ncjs.Travel.Diary.models.Users;
 import com.ncjs.Travel.Diary.models.data.UserRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +31,12 @@ public class RegistrationController {
 
     @GetMapping("register")
     public String displayAddUserForm(Model model) {
-        model.addAttribute(new User());
+        model.addAttribute(new Users());
         return "users/register";
     }
 
     @PostMapping("register")
-    public String processAddUserForm(@ModelAttribute @Valid User newUser,
+    public String processAddUserForm(@ModelAttribute @Valid Users newUser,
                                          Errors errors, Model model) {
         if (errors.hasErrors()) {
             return "users/register";
@@ -51,7 +49,7 @@ public class RegistrationController {
     public String displayViewUser(Model model, @PathVariable int userId) {
         Optional optUser = userRepository.findById(userId);
         if (optUser.isPresent()) {
-            User user = (User) optUser.get();
+            Users user = (Users) optUser.get();
             model.addAttribute("user", user);
             return "users/register";
         } else {
