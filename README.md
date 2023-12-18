@@ -1,4 +1,3 @@
-<<<<<<< ubeb24-patch-1
 # Travel Diary
 From the members of ncjs, our project serves as a personal portfolio/digital scrapbook for trips that our users take.  We think that having an application dedicated to storing vacation/trip memories would be great in comparison to scrolling for miles in your photos to find the one you’re looking for. We’ve developed an app that creates an unique folder for each trip the user has taken that stores photos and trip descriptions in each folder. Be the main character in your journey!  
 
