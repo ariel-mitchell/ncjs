@@ -1,7 +1,13 @@
 # Travel Diary
-From the members of ncjs, our project serves as a personal portfolio/digital scrapbook for trips that our users take.  We think that having an application dedicated to storing vacation/trip memories would be great in comparison to scrolling for miles in your photos to find the one you’re looking for. We’ve developed an app that creates an unique folder for each trip the user has taken that stores photos and trip descriptions in each folder. Be the main character in your journey!  
+From the members of NCJS, our project serves as a personal portfolio/digital scrapbook for trips that our users take.  Having an application dedicated to storing vacation/trip memories is a great alternative to scrolling for miles in your photos to find the one you’re looking for. We’ve developed an app that creates an unique folder for each trip the user has taken that stores photos and trip descriptions in each folder. Be the main character in your journey! 
 
 ## Description
+
+Travel Diary allows people to store their trip information (Cities, States, photos, and descriptions) on the web to be easily accessed and shared with friends from wherever they may be. Each trip is stored in an unique folder, which stores photos and trip descriptions.
+
+Trips are only visible to the user who stored their photos and descriptions in the app, ensuring privacy.
+
+Trip data can be searched to allow travelers to find a specific adventure for reminiscing or sharing. Favorite trips can be designated as a "favorite".
 
 ### Dependencies
 * Thymeleaf
@@ -25,5 +31,7 @@ For now, our development team is still working on deployment strategies. _The on
 ## License
 This project is licensed under the MIT license--please see our license file for more information!
 
-# ncjs
+# NCJS
 LaunchCode LiftOff Project
+Contributors: Nidia Menchaca, Cheri Hutchinson, Jessica S, Samuel Carter
+
