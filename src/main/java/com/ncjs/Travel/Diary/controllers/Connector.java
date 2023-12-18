@@ -8,15 +8,14 @@ import java.sql.*;
 public class Connector {
 
     public Connection con;
-    private final String URL = "jdbc:mysql://localhost:8800/dbname";
-//    private final String USERNAME = "username";
-//    private final String PASSWORD = "password";
+    private final String URL = "jdbc:mysql://localhost:8800/traveldiary";
+    private final String USERNAME = "traveldiary";
+    private final String PASSWORD = "traveldiary";
 
     /* Add DB Connection */
     public void add() {
         try {
-//            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            con = DriverManager.getConnection(URL);
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException se) {
             se.printStackTrace();
         }

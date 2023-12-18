@@ -35,21 +35,26 @@ public class User extends AbstractEntity {
     @Size(max = 50, message = "Maximum Email length is 50 characters.")
     private String email;
 
+    private Boolean verified;
+
 
     // constructors
     public User() {}
 
     // Initialize the id and value fields.
-    public User(String userName, String password, String confirmPassword, String email) {
-//        super();
-        if (Objects.equals(password, confirmPassword)) {
-            this.userName = userName;
-            this.password = password;
-            this.email = email;
-        } else {
+    public User(Integer userId, String userName, String password, String email, Boolean verified) {
+        super();
+//        if (Objects.equals(password, confirmPassword)) {
+// TODO how do I get the id from super into this.userId or do I have to just call the field "id"?
+//        this.userId = ?;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.verified = false;
+//        } else {
 //            model.addAttribute("message", "Password and Confirm password must match.");
 //            return "/add";
-        }
+//        }
     }
 
     // getters and setters

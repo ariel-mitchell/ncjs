@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("registration/")
+@RequestMapping("users/")
 public class RegistrationController {
 //public class RegistrationController extends TravelDiaryApplication {
 
@@ -24,24 +24,24 @@ public class RegistrationController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("title", "All Users");
-        model.addAttribute("users",userRepository.findAll());
-        return "users/index";
-    }
+//    @GetMapping("/")
+//    public String index(Model model) {
+//        model.addAttribute("title", "All Users");
+//        model.addAttribute("users",userRepository.findAll());
+//        return "users/index";
+//    }
 
-    @GetMapping("add")
+    @GetMapping("register")
     public String displayAddUserForm(Model model) {
         model.addAttribute(new User());
-        return "users/add";
+        return "users/register";
     }
 
-    @PostMapping("add")
+    @PostMapping("register")
     public String processAddUserForm(@ModelAttribute @Valid User newUser,
                                          Errors errors, Model model) {
         if (errors.hasErrors()) {
-            return "users/add";
+            return "users/register";
         }
         userRepository.save(newUser);
         return "redirect:";
@@ -53,7 +53,7 @@ public class RegistrationController {
         if (optUser.isPresent()) {
             User user = (User) optUser.get();
             model.addAttribute("user", user);
-            return "users/view";
+            return "users/register";
         } else {
             return "redirect:../";
         }
