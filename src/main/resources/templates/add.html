@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Location</title>
 </head>
 <body>
+
+<a href="#" class="add-button" id="addButton">Add Location</a>
+
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<div class="modal" id="locationModal">
+    <h2>Add Location</h2>
+    <input type="text" placeholder="Search location" id="locationInput">
+    <button class="close-button" onclick="closeModal()">Close</button>
+</div>
+
+<script>
+    const addButton = document.getElementById('addButton');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const locationModal = document.getElementById('locationModal');
+
+    addButton.addEventListener('click', openModal);
+
+    function openModal() {
+        modalOverlay.style.display = 'block';
+        locationModal.style.display = 'block';
+    }
+
+    function closeModal() {
+        modalOverlay.style.display = 'none';
+        locationModal.style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
