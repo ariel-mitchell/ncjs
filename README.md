@@ -24,6 +24,6 @@ For now, our development team is still working on deployment strategies. _The on
 
 ## License
 This project is licensed under the MIT license--please see our license file for more information!
-=======
+
 # ncjs
 LaunchCode LiftOff Project
