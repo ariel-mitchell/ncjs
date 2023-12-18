@@ -28,10 +28,16 @@ Feel free to download our application to your local machine!
 ### Execution
 For now, our development team is still working on deployment strategies. _The only way to execute code is to run a bootrun program through Gradle to access in your localhost._ Please contact us if you'd like to booster your coding portfolio and contribute to the deployment of our application! If you're interested in our mission and you got the skills, we would love to talk about having you on our team :^)
 
+## Inspiration
+The dreariness of scrolling through the whole photo gallery to find ONE picture!
+
 ## License
 This project is licensed under the MIT license--please see our license file for more information!
 
 # NCJS
 LaunchCode LiftOff Project
 Contributors: Nidia Menchaca, Cheri Hutchinson, Jessica S, Samuel Carter
+
+## Acknowledgements
+Big thank you to LaunchCode, Colin, Carrie, our classmates, our TA's and ESPECIALLY Ariel for getting us here!
 
