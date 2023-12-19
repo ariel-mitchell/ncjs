@@ -31,6 +31,9 @@ For now, our development team is still working on deployment strategies. _The on
 ## License
 This project is licensed under the MIT license--please see our license file for more information!
 
+## Inspiration
+The dreariness of scrolling through the whole photo gallery to find ONE picture!
+
 # NCJS
 LaunchCode LiftOff Project
 Contributors: Nidia Menchaca, Cheri Hutchinson, Jessica S, Samuel Carter
