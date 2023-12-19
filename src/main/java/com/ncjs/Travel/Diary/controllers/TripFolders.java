@@ -1,10 +1,7 @@
 package com.ncjs.Travel.Diary.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,18 +39,27 @@ public class TripFolders {
     @GetMapping("/add-trips")
     @ResponseBody
     public String addTripPage() {
-        return "<h2> Add Trip title </h2>" +
-                "<h2> Choose a cover photo! </h2>" +
-                "<h2> Add description </h2>" +
-                "<h2> + Add new photo </h2>";
-
-
+        return "<form action='/add-trips' method='post'>" +
+                "<label for='tripTitle'>Trip:</label>" +
+                "<input type='text' id='tripTitle' name='tripTitle' required><br>" +
+                "<input type='submit' value='Add Trip'>" +
+                "</form>";
     }
+
+    @PostMapping("/add-trips")
+    @ResponseBody
+    public String addTrip(@RequestParam String tripTitle) {
+        trips.put(nextId, tripTitle);
+        nextId++;
+        return "<h2> Trip added successfully: " + tripTitle + "</h2>";
+    }
+
 
     @GetMapping("/trips/{tripId}")
     @ResponseBody
     public String displayTripDetails(@PathVariable int tripId){
-        return "<h2> Trip: " + trips.get(tripId) + "</h2>";
+        return "<h2> Trip: " + trips.get(tripId) + "</h2>" +
+               "<h2> ID: " + tripId + "</h2>";
 
 
 
