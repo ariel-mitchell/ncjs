@@ -37,23 +37,17 @@ public class TripFolders {
     }
 
     @GetMapping("/trips/add")
-//    @ResponseBody
     public String addTripPage() {
         return "form";
-
-//                "<form action='/trips/add' method='POST'>" +
-//                "<label for='tripTitle'>Trip:</label>" +
-//                "<input type='text' id='tripTitle' name='tripTitle' required><br>" +
-//                "<input type='submit' value='Add Trip'>" +
-//                "</form>";
     }
 
     @PostMapping("/trips/add")
-    @ResponseBody
+//    @ResponseBody
     public String addTrip(@RequestParam String tripTitle) {
         trips.put(nextId, tripTitle);
         nextId++;
-        return "<h2> Trip added successfully: " + tripTitle + "</h2>";
+        return "redirect:/";
+//                "<h2> Trip added successfully: " + tripTitle + "</h2>";
     }
 
 
