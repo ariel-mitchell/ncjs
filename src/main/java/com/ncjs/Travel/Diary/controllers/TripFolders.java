@@ -33,20 +33,22 @@ public class TripFolders {
                 "<ul>" +
                 tripsList +
                 "</ul>" +
-                "<h2> + Add new <a href='/add-trips'>trip</a> </h2>";
+                "<h2> + Add new <a href='/trips/add'>trip</a> </h2>";
     }
 
-    @GetMapping("/add-trips")
-    @ResponseBody
+    @GetMapping("/trips/add")
+//    @ResponseBody
     public String addTripPage() {
-        return "<form action='/add-trips' method='post'>" +
-                "<label for='tripTitle'>Trip:</label>" +
-                "<input type='text' id='tripTitle' name='tripTitle' required><br>" +
-                "<input type='submit' value='Add Trip'>" +
-                "</form>";
+        return "form";
+
+//                "<form action='/trips/add' method='POST'>" +
+//                "<label for='tripTitle'>Trip:</label>" +
+//                "<input type='text' id='tripTitle' name='tripTitle' required><br>" +
+//                "<input type='submit' value='Add Trip'>" +
+//                "</form>";
     }
 
-    @PostMapping("/add-trips")
+    @PostMapping("/trips/add")
     @ResponseBody
     public String addTrip(@RequestParam String tripTitle) {
         trips.put(nextId, tripTitle);
