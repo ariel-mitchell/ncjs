@@ -18,7 +18,6 @@ public class TripController {
     @GetMapping("/trips")
 
     public String displayHomePage(Model model) {
-//        List <Trip> tripList = new ArrayList<>(trips.values());
         model.addAttribute("tripList", TripsData.getAll());
         return "index";
     }
