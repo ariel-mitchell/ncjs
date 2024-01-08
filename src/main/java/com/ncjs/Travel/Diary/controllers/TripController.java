@@ -15,15 +15,6 @@ import java.util.Map;
 @Controller
 public class TripController {
 
-//    private static int nextId = 6;
-//    private static final Map< Integer, Trip> trips = new HashMap<>() {{
-//        put(1, new Trip("Canada"));
-//        put(2, new Trip("Italy"));
-////        put(3,"Greece");
-////        put(4,"Paris");
-////        put(5,"New York");
-//    }};
-
     @GetMapping("/trips")
 
     public String displayHomePage(Model model) {
@@ -42,7 +33,6 @@ public class TripController {
     public String addTrip(@RequestParam String tripName) {
         Trip newTrip = new Trip(tripName);
         TripsData.add(newTrip);
-//        trips.put(newTrip.getId(), newTrip);
         return "redirect:/trips";
 
     }
@@ -62,21 +52,6 @@ public class TripController {
 
         return "redirect:/trips";
     }
-
-
-
-
-
-
-//    @GetMapping("/trips/{tripId}")
-//    @ResponseBody
-//    public String displayTripDetails(@PathVariable int tripId){
-//        return "<h2> Trip: " + newTrip.get(tripId) + "</h2>" +
-//                "<h2> ID: " + tripId + "</h2>";
-//
-//
-//
-//    }
 
 }
 
