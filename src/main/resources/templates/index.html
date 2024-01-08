@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel ="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js">-->
+</head>
+<body>
+    <main>
+
+        <p th:unless="${tripList} and ${tripList.size()}">
+            <em>There are no trips at this time. Add a trip!</em>
+        </p>
+
+        <th:block th:if="${tripList} and ${tripList.size()}">
+            <table class ="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Trip</th>
+                </tr>
+            </thead>
+                <tr th:each="trip: ${tripList}">
+                    <td th:text="${trip.id}"></td>
+                    <td th:text="${trip.trip}"></td>
+                </tr>
+            </table>
+        </th:block>
+    </main>
+</body>
+</html>
