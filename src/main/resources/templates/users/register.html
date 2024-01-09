@@ -24,10 +24,16 @@
     </div>
 
 <!-- TODO Determine what to actually do with this... -->
+<!--    <div class="form-group">-->
+<!--        <label th:for="confirm_password">Confirm Password</label>-->
+<!--        <input class="form-control" th:field="${user.confirm_password}" />-->
+<!--        <span th:errors="${user.confirm_password}" class="error"></span>-->
+<!--    </div>-->
+
     <div class="form-group">
-        <label th:for="password">Confirm Password</label>
-        <input class="form-control" th:field="${user.confirm_password}" />
-        <span th:errors="${user.confirm_password}" class="error"></span>
+        <label th:for="confirmPassword">Confirm Password</label>
+        <input class="form-control" th:field="${user.confirmPassword}" />
+        <span th:errors="${user.confirmPassword}" class="error"></span>
     </div>
 
     <div class="form-group">
@@ -38,8 +44,9 @@
 
     <input type="submit" value="Create Account" />
 
-    <div class="form-group">
-        <label th:text="Already registered?"></label>
+    <div>
+        <br>
+        <p>Already registered? <a href="http://localhost8080/users/login.html">Login</a></p>
     </div>
 </form>
 
