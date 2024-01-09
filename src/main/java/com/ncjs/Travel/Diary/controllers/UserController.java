@@ -25,14 +25,14 @@ public class UserController {
     public String home() { return "index"; }
 
 // handler for user registration form
-    @GetMapping("register")
+    @GetMapping("users/register")
     public String displayAddUserForm(Model model) {
         // create model object to store form data
         model.addAttribute(new User());
         return "users/register";
     }
 
-    @PostMapping("register")
+    @PostMapping("users/register")
     public String processAddUserForm(@ModelAttribute @Valid User newUser,
                                          Errors errors, Model model) {
         if (errors.hasErrors()) {
@@ -41,14 +41,14 @@ public class UserController {
         userRepository.save(newUser);
         return "redirect:";
     }
-
-    // handler for login form
-    @GetMapping("login")
-    public String displayLoginForm(Model model) {
-        // create model object to store form data
-//        model.addAttribute(new User());
-        return "users/login";
-    }
+//
+//    // handler for login form
+//    @GetMapping("login")
+//    public String displayLoginForm(Model model) {
+//        // create model object to store form data
+////        model.addAttribute(new User());
+//        return "users/login";
+//    }
 
 //    @PostMapping("login")
 //    public String processLoginForm(@ModelAttribute @Valid User newUser,

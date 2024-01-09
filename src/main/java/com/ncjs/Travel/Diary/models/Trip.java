@@ -12,11 +12,6 @@ public class Trip extends AbstractEntity {
     @ManyToOne
     private User users;
 
-// The following lines are in AbstractEntity
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     private String title;
 
 //    public Long getId( ) { return id; }

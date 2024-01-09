@@ -13,34 +13,33 @@
 <form method="post" style="max-width:600px;">
     <div class="form-group">
         <label th:for="username">User Name</label>
-        <input class="form-control" th:field="${users.username}" />
-        <span th:errors="${users.username}" class="error"></span>
+        <input class="form-control" th:field="${user.username}" />
+        <span th:errors="${user.username}" class="error"></span>
     </div>
 
     <div class="form-group">
         <label th:for="password">Password</label>
-        <input class="form-control" th:field="${users.password}" />
-        <span th:errors="${users.password}" class="error"></span>
+        <input class="form-control" th:field="${user.password}" />
+        <span th:errors="${user.password}" class="error"></span>
     </div>
 
 <!-- TODO Determine what to actually do with this... -->
     <div class="form-group">
         <label th:for="password">Confirm Password</label>
-        <input class="form-control" th:field="${users.password}" />
-        <span th:errors="${users.password}" class="error"></span>
+        <input class="form-control" th:field="${user.confirm_password}" />
+        <span th:errors="${user.confirm_password}" class="error"></span>
     </div>
 
     <div class="form-group">
         <label th:for="email">Email</label>
-        <input class="form-control" th:field="${users.email}" />
-        <span th:errors="${users.email}" class="error"></span>
+        <input class="form-control" th:field="${user.email}" />
+        <span th:errors="${user.email}" class="error"></span>
     </div>
 
     <input type="submit" value="Create Account" />
 
     <div class="form-group">
-        <label th:text="Already registered?"><label/>
-        <
+        <label th:text="Already registered?"></label>
     </div>
 </form>
 

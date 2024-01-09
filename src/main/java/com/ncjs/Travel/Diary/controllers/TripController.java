@@ -18,8 +18,4 @@ public class TripController {
     @Autowired
     private TripRepository TripRepository;
 
-    // handle home page request
-    @GetMapping("/index")
-    public String home() { return "index"; }
-
 }

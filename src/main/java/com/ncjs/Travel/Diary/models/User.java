@@ -16,11 +16,6 @@ import java.util.List;
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User extends AbstractEntity {
 
-// The following lines are in AbstractEntity
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @Column(name = "user_name")
     @NotBlank(message = "User Name is required.")
     @NotNull(message = "User Name is required.")
@@ -44,27 +39,17 @@ public class User extends AbstractEntity {
 
     private Boolean verified;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private final List<Trip> trips = new ArrayList<>();
-
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "user_trips",
-//            joinColumns = @JoinColumn(
-//                    name = "user_id", referencedColumnName = "id"))
-    // if it was a @ManyToMany relationship, add the commented lines below:
-    //      inverseJoinColumns = @JoinColumn(
-    //                      name = "trip_id", referencedColumnName = "id"))
-
-//    private Collection<Trips> trips;
+//    @OneToMany
+//    @JoinColumn(name = "user_id")
+//    private final List<Trip> trips = new ArrayList<>();
 
     // constructors
     public User() { }
 
     // Initialize the id and value fields.
-    public User(Integer userId, String userName, String password, String email,
-                List<Trip> atrip, Boolean verified) {
+    public User(Integer Id, String userName, String password,
+                String email, Boolean verified) {
+//               String email, List<Trip> atrip, Boolean verified) {
         super();
 //        if (Objects.equals(password, confirmPassword)) {
 // TODO how do I get the id from super into this.userId or do I have to just call the field "id"?
@@ -92,6 +77,10 @@ public class User extends AbstractEntity {
 
     public void setPassword(String password) { this.password = password; }
 
+    public String getConfirmPassword( ) { return confirmPassword; }
+
+    public void setConfirmPassword(String confirm_password) { this.confirmPassword = confirm_password; }
+
     public String getEmail( ) { return email; }
 
     public void setEmail(String email) { this.email = email; }
@@ -100,7 +89,7 @@ public class User extends AbstractEntity {
 
     public void setVerified(Boolean verified) { this.verified = verified; }
 
-    public Collection<Trip> getTrips() { return trips; }
+//    public Collection<Trip> getTrips() { return trips; }
 
 //    public void setTrips(List<Trip> trips) { this.trips = trips; }
 
