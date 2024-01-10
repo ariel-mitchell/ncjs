@@ -26,8 +26,19 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ModelAttribute("user")
+    public UserRegistrationDto userRegistrationDto() {
+        return new UserRegistrationDto();
+    }
+
+    @GetMapping
+    public String showRegistrationForm() {
+        return "register";
+    }
+
     // The ModelAttribute contains the user form data,
     // which is bound to the user object registrationDto
+    @PostMapping
     public String registerUserAccount(@ModelAttribute("user")
                                       UserRegistrationDto registrationDto) {
         userService.save(registrationDto);

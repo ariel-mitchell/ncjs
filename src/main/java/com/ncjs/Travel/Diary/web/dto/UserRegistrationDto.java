@@ -13,6 +13,10 @@ public class UserRegistrationDto {
     private String email;
     private Boolean verified;
 
+    UserRegistrationDto() {
+
+    }
+
     // constructors
     // regular constructor
 

@@ -6,47 +6,67 @@
 </head>
 <body class="container body-content">
 
+<!-- Navigation bar -->
 <nav th:replace="~{fragments :: page-header}"></nav>
 
+<!-- HTML registration form -->
 <h1>New User Registration</h1>
 
-<form method="post" style="max-width:600px;">
+<br>
+<br>
+<!-- success message -->
+<div th:if="${param.success}">
+    <div class = "alert alert-info">
+        Registration Successful!
+    </div>
+</div>
+
+<!--<form method="post" style="max-width:600px;">-->
+<form method="post" th:action="@{/users/register}" th:object="${user}">
+
     <div class="form-group">
-        <label th:for="username">User Name</label>
-        <input class="form-control" th:field="${user.username}" />
+        <label class="control-label" th:for="username">
+            User Name
+        </label>
+        <input id="userName" class="form-control"
+               th:field="${user.username}" required autofocus="autofocus" />
         <span th:errors="${user.username}" class="error"></span>
     </div>
 
     <div class="form-group">
-        <label th:for="password">Password</label>
-        <input class="form-control" th:field="${user.password}" />
+        <label class="control-label" th:for="password">
+            Password
+        </label>
+        <input id="password" class="form-control" type="password"
+                th:field="${user.password}" required autofocus="autofocus" />
         <span th:errors="${user.password}" class="error"></span>
     </div>
 
 <!-- TODO Determine what to actually do with this... -->
-<!--    <div class="form-group">-->
-<!--        <label th:for="confirm_password">Confirm Password</label>-->
-<!--        <input class="form-control" th:field="${user.confirm_password}" />-->
-<!--        <span th:errors="${user.confirm_password}" class="error"></span>-->
-<!--    </div>-->
-
     <div class="form-group">
-        <label th:for="confirmPassword">Confirm Password</label>
-        <input class="form-control" th:field="${user.confirmPassword}" />
+        <label class="control-label" th:for="confirmPassword">
+            Confirm Password
+        </label>
+        <input id=confirmPassword class="form-control" type="password"
+                th:field="${user.confirmPassword}" required autofocus="autofocus" />
         <span th:errors="${user.confirmPassword}" class="error"></span>
     </div>
 
     <div class="form-group">
-        <label th:for="email">Email</label>
-        <input class="form-control" th:field="${user.email}" />
+        <label class="control-label" th:for="email">
+            Email
+        </label>
+        <input id="email" class="form-control"
+               th:field="${user.email}" required autofocus="autofocus" />
         <span th:errors="${user.email}" class="error"></span>
     </div>
 
-    <input type="submit" value="Create Account" />
-
-    <div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Create Account</button>
         <br>
-        <p>Already registered? <a href="http://localhost8080/users/login.html">Login</a></p>
+        <p>Already registered?
+            <a href="/" th:href="@{/users/login}">Login</a>
+        </p>
     </div>
 </form>
 
