@@ -29,10 +29,11 @@ public class TripController {
 
     @PostMapping("/trips/add")
 
-    public String addTrip(@RequestParam String tripName) {
-        Trip newTrip = new Trip(tripName);
-        TripsData.add(newTrip);
+    public String addTrip(@ModelAttribute Trip tripName) {
+//        Trip newTrip = new Trip(tripName);
+        TripsData.add(tripName);
         return "redirect:/trips";
+//        @RequestParam String tripName
 
     }
 
