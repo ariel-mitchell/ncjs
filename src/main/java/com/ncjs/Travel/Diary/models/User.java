@@ -67,26 +67,26 @@ public class User extends AbstractEntity {
 //        }
     }
 
+    //  constructor
+    public User(String userName, String password,
+                String confirmPassword, String email, Boolean verified) {
+        super();
+    }
+
     // getters and setters
-
     public String getUsername( ) { return userName; }
-
     public void setUsername(String userName) { this.userName = userName; }
 
     public String getPassword( ) { return password; }
-
     public void setPassword(String password) { this.password = password; }
 
     public String getConfirmPassword( ) { return confirmPassword; }
-
     public void setConfirmPassword(String confirm_password) { this.confirmPassword = confirm_password; }
 
     public String getEmail( ) { return email; }
-
     public void setEmail(String email) { this.email = email; }
 
     public Boolean getVerified( ) { return verified; }
-
     public void setVerified(Boolean verified) { this.verified = verified; }
 
 //    public Collection<Trip> getTrips() { return trips; }

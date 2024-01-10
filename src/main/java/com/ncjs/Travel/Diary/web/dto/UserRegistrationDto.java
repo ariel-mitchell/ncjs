@@ -1,10 +1,5 @@
 package com.ncjs.Travel.Diary.web.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 public class UserRegistrationDto {
 
     private String userName;
@@ -13,17 +8,14 @@ public class UserRegistrationDto {
     private String email;
     private Boolean verified;
 
-    UserRegistrationDto() {
-
-    }
-
-    // constructors
-    // regular constructor
+    // null constructor
+    public UserRegistrationDto() { }
 
     // parameterized constructor
     public UserRegistrationDto(String userName, String password,
                                String confirmPassword, String email,
                                Boolean verified) {
+        super();
         this.userName = userName;
         this.password = password;
         this.confirmPassword = confirmPassword;

@@ -1,6 +1,7 @@
 package com.ncjs.Travel.Diary.service;
 
-import com.ncjs.Travel.Diary.web.dto.UserRegistrationDto;
+        import com.ncjs.Travel.Diary.models.User;
+        import com.ncjs.Travel.Diary.web.dto.UserRegistrationDto;
 
 public interface UserService {
 

@@ -31,6 +31,7 @@ public class UserController {
         return new UserRegistrationDto();
     }
 
+    // data handlers
     @GetMapping
     public String showRegistrationForm() {
         return "register";
