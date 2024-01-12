@@ -1,8 +1,9 @@
 package com.ncjs.Travel.Diary.controllers;
 
 
-import com.ncjs.Travel.Diary.data.TripsData;
+import com.ncjs.Travel.Diary.data.TripRepository;
 import com.ncjs.Travel.Diary.models.Trip;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.Map;
 @Controller
 public class TripController {
 
+    @Autowired
+    private TripRepository tripRepository;
     @GetMapping("/trips")
 
     public String displayHomePage(Model model) {
-        model.addAttribute("tripList", TripsData.getAll());
+        model.addAttribute("tripList", tripRepository.findAll());
         return "index";
     }
 
@@ -30,28 +33,27 @@ public class TripController {
     @PostMapping("/trips/add")
 
     public String addTrip(@ModelAttribute Trip tripName) {
-//        Trip newTrip = new Trip(tripName);
-        TripsData.add(tripName);
+        tripRepository.save(tripName);
         return "redirect:/trips";
-//        @RequestParam String tripName
 
     }
 
 
     @GetMapping("/trips/delete")
     public String displayDeleteForm(Model model) {
-        model.addAttribute("tripList", TripsData.getAll());
+        model.addAttribute("tripList", tripRepository.findAll());
         return "delete";
     }
 
     @PostMapping("/trips/delete")
     public String processDeleteForm(@RequestParam(required = false) int[] tripId) {
         for(int id: tripId) {
-            TripsData.remove(id);
+            tripRepository.deleteById(id);
         }
 
         return "redirect:/trips";
     }
+
 
 }
 

@@ -2,16 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
-    <title></title>
+    <title>Delete Trip</title>
 </head>
 <body>
 <form action='/trips/delete' method='POST'>
-    <th:block th:each="trip : ${tripList}">
-        <label>
-            <input type="checkbox" name="tripId" th:value="${trip.id}" />
-            <span th:text="${trip}"></span>
-        </label>
-    </th:block>
+    <label th:each="trip : ${tripList}">
+        <input type="checkbox" name="tripId" th:value="${trip.id}" />
+        <span th:text="${trip.tripName}"></span>
+    </label>
     <button type='submit'>Delete Trip</button>
 </form>
 </body>

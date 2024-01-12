@@ -16,7 +16,8 @@
     </header>
 
     <div id="add">
-        <a class="addTrip" href="/trips/add">Add a trip</a>
+        <a class="addTrip" href="/trips/add">Add a trip</a> <br>
+        <a class="deleteTrip" href="/trips/delete">Delete a trip</a>
 
 
         <main>
@@ -30,11 +31,17 @@
                 <tr>
                     <th>ID</th>
                     <th>Trip</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Picture</th>
                 </tr>
             </thead>
                 <tr th:each="trip: ${tripList}">
                     <td th:text="${trip.id}"></td>
                     <td th:text="${trip.tripName}"></td>
+                    <td th:text="${trip.city}"></td>
+                    <td th:text="${trip.state}"></td>
+                    <td th:text="${trip.image}"></td>
                 </tr>
             </table>
         </th:block>
