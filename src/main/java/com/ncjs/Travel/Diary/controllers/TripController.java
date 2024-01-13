@@ -55,6 +55,22 @@ public class TripController {
     }
 
 
+    @PostMapping("/trips/favorite")
+    public String updateFavorites(@RequestParam(required = false) int[] tripId) {
+        if (tripId != null) {
+            for (int id : tripId) {
+                Trip trip = tripRepository.findById(id).orElse(null);
+                if (trip != null) {
+                    // Toggle the favorite status
+                    trip.setFavorite(!trip.isFavorite());
+                    tripRepository.save(trip);
+                }
+            }
+        }
+
+        return "redirect:/trips";
+
+    }
 }
 
 
