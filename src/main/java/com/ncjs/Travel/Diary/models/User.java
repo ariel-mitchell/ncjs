@@ -4,22 +4,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
 // Would rather that email not be required to be unique - address later?
 //@Table(name = "user")
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+//@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User extends AbstractEntity {
 
-    @Column(name = "user_name")
-    @NotBlank(message = "User Name is required.")
+//    @Column(name = "user_name")
+//    @NotBlank(message = "User Name is required.")
+//    @Size(max = 25, message = "Maximum Name length is 25 characters.")
     @NotNull(message = "User Name is required.")
-    @Size(max = 25, message = "Maximum Name length is 25 characters.")
     private String userName;
 
     @NotNull
@@ -45,9 +42,6 @@ public class User extends AbstractEntity {
     private static final BCryptPasswordEncoder encoder =
             new BCryptPasswordEncoder();
 
-//    @OneToMany
-//    @JoinColumn(name = "user_id")
-//    private final List<Trip> trips = new ArrayList<>();
 
     // constructors
     public User() { }
@@ -55,22 +49,11 @@ public class User extends AbstractEntity {
     // Initialize the id and value fields.
     public User(String userName, String password,
                 String email, Boolean verified) {
-//               String email, List<Trip> atrip, Boolean verified) {
         super();
-//        if (Objects.equals(password, confirmPassword)) {
-// TODO how do I get the id from super into this.userId or do I have to just call the field "id"?
-//        this.userId = ?;
-//        if (password == confirmPassword) {
-            this.userName = userName;
-            this.pwHash = encoder.encode(password);
-            this.email = email;
-//            this.trip = atrip;
-            this.verified = false;
-//            return "/login";
-//        } else {
-//            model.addAttribute("message", "Password and Confirm password must match.");
-//            return "/add";
-//        }
+        this.userName = userName;
+        this.pwHash = encoder.encode(password);
+        this.email = email;
+        this.verified = false;
     }
 
     //  constructor

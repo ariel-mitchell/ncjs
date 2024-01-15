@@ -54,10 +54,12 @@ public class AuthenticationController {
         model.addAttribute("title", "Register");
         return "register";
     }
+
     @PostMapping("/register")
     public String processRegistrationForm(
             @ModelAttribute @Valid RegisterFormDto registerFormDto,
-            Errors errors, HttpServletRequest request,
+            Errors errors,
+            HttpServletRequest request,
             Model model) {
 
         if (errors.hasErrors()) {
@@ -78,7 +80,7 @@ public class AuthenticationController {
         }
 
         String password = registerFormDto.getPassword();
-        String verifyPassword = registerFormDto.getVerifyPassword();
+        String verifyPassword = registerFormDto.getConfirmPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password",
                     "passwords.mismatch",
