@@ -1,15 +1,12 @@
 package com.ncjs.Travel.Diary.controllers;
 
-import com.ncjs.Travel.Diary.models.User;
 import com.ncjs.Travel.Diary.models.data.UserRepository;
 import com.ncjs.Travel.Diary.service.UserService;
-import com.ncjs.Travel.Diary.web.dto.UserRegistrationDto;
-import jakarta.validation.Valid;
+import com.ncjs.Travel.Diary.web.dto.RegisterFormDto;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,13 +28,15 @@ public class UserController {
     }
 
     @ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public RegisterFormDto userRegistrationDto() {
+        return new RegisterFormDto();
     }
 
     // data handlers
     @GetMapping("register")
-    public String showRegistrationForm() {
+    public String showRegistrationForm(Model model) {
+        model.addAttribute(new RegisterFormDto());
+        model.addAttribute("title", "Register");
         return "users/register";
     }
 
@@ -45,7 +44,7 @@ public class UserController {
     // which is bound to the user object registrationDto
     @PostMapping("register")
     public String registerUserAccount(@ModelAttribute("user")
-                                      UserRegistrationDto registrationDto) {
+                                      RegisterFormDto registrationDto) {
         userService.save(registrationDto);
         // TODO
         // return to the users/registration page with a Success message

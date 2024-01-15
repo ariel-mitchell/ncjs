@@ -22,53 +22,51 @@
 </div>
 
 <!--<form method="post" style="max-width:600px;">-->
-<form method="post" th:action="@{/users/register}" th:object="${user}">
-
+<!--<form method="post" th:action="@{/users/register}" th:object="${user}">-->
+<form method="post">
     <div class="form-group">
-        <label class="control-label" th:for="username">
-            User Name
+        <label>User Name
+            <input
+                class="form-control"
+                th:field="${registerFormDto.username}"
+                required autofocus="autofocus" />
         </label>
-        <input id="userName" class="form-control"
-               th:field="${user.username}" required autofocus="autofocus" />
-        <span th:errors="${user.username}" class="error"></span>
+        <p  class="error" th:errors="${registerFormDto.username}"></p>
     </div>
-
     <div class="form-group">
-        <label class="control-label" th:for="password">
-            Password
+        <label>Password
+            <input class="form-control"
+                   type="password"
+                   th:field="${registerFormDto.password}"
+                   required autofocus="autofocus" />
         </label>
-        <input id="password" class="form-control" type="password"
-                th:field="${user.password}" required autofocus="autofocus" />
-        <span th:errors="${user.password}" class="error"></span>
+        <p class="error" th:errors="${registerFormDto.password}"></p>
     </div>
-
-<!-- TODO Determine what to actually do with this... -->
     <div class="form-group">
-        <label class="control-label" th:for="confirmPassword">
-            Confirm Password
+        <label>Confirm Password
+            <input class="form-control"
+                   type="password"
+                   th:field="${registerFormDto.confirmPassword}"
+                   required autofocus="autofocus" />
         </label>
-        <input id=confirmPassword class="form-control" type="password"
-                th:field="${user.confirmPassword}" required autofocus="autofocus" />
-        <span th:errors="${user.confirmPassword}" class="error"></span>
     </div>
-
     <div class="form-group">
-        <label class="control-label" th:for="email">
-            Email
+        <label>Email
+            <input class="form-control"
+                   th:field="${registerFormDto.email}"
+                   required autofocus="autofocus" />
         </label>
-        <input id="email" class="form-control"
-               th:field="${user.email}" required autofocus="autofocus" />
-        <span th:errors="${user.email}" class="error"></span>
+        <p class="error" th:errors="${registerFormDto.email}"></p>
     </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Create Account</button>
-        <br>
-        <p>Already registered?
-            <a href="/" th:href="@{/users/login}">Login</a>
-        </p>
-    </div>
+    <input type="submit"
+           class="btn btn-success"
+           value="Create Account" />
 </form>
+
+<br>
+<p>Already registered?
+    <a href="/" th:href="@{/users/login}">Login</a>
+</p>
 
 </body>
 </html>

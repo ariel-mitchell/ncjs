@@ -4,7 +4,7 @@ package com.ncjs.Travel.Diary.service;
 import com.ncjs.Travel.Diary.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ncjs.Travel.Diary.web.dto.UserRegistrationDto;
+import com.ncjs.Travel.Diary.web.dto.RegisterFormDto;
 import com.ncjs.Travel.Diary.models.User;
 
 @Service
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User save(UserRegistrationDto registrationDto) {
+    public User save(RegisterFormDto registrationDto) {
        User user = new User(registrationDto.getUserName(),
                registrationDto.getPassword(), registrationDto.getConfirmPassword(),
                registrationDto.getEmail(), registrationDto.getVerified());
