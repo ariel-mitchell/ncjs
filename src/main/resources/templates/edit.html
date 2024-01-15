@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <script th:src="@{/theme.js}"></script>
+</head>
+<body>
+<form th:action="@{'/trips/edit/' + ${trip.id}}" method="POST" th:object="${trip}">
+    <label for="tripName">New Trip Name:</label>
+    <input type="text" id="tripName" name="tripName" th:field="*{tripName}" required><br>
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" th:field="*{description}" /><br>
+    <button type="submit">Save Changes</button>
+</form>
+
+</body>
+</html>

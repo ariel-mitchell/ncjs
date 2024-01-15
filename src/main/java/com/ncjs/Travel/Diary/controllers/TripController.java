@@ -8,16 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class TripController {
 
     @Autowired
     private TripRepository tripRepository;
+    private String description;
+
     @GetMapping("/trips")
 
     public String displayHomePage(Model model) {
@@ -71,6 +70,51 @@ public class TripController {
         return "redirect:/trips";
 
     }
+
+    @GetMapping("/trips/edit/{id}")
+    public String displayEditForm(@PathVariable int id, Model model) {
+        Trip trip = tripRepository.findById(id).orElse(null);
+        model.addAttribute("trip", trip);
+        return "edit";
+    }
+
+//    @PostMapping("/trips/edit/{id}")
+//    public String saveEditedTrip(@PathVariable String id, @RequestParam String tripName) {
+//
+//        int tripId = Integer.parseInt(id);
+//
+//        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
+//
+//        if (optionalTrip.isPresent()) {
+//            // Update the trip name
+//            Trip trip = optionalTrip.get();
+//            trip.setTripName(tripName);
+//            trip.setDescription(description);
+//            tripRepository.save(trip);
+//        }
+//
+//        return "redirect:/trips";
+//    }
+
+    @PostMapping("/trips/edit/{id}")
+    public String saveEditedTrip(@PathVariable int id, @ModelAttribute Trip updatedTrip) {
+        Optional<Trip> optionalTrip = tripRepository.findById(id);
+
+        if (optionalTrip.isPresent()) {
+            Trip existingTrip = optionalTrip.get();
+
+            // Update fields
+            existingTrip.setTripName(updatedTrip.getTripName());
+            existingTrip.setDescription(updatedTrip.getDescription());
+
+            tripRepository.save(existingTrip);
+        }
+
+        return "redirect:/trips";
+    }
+
+
+
 }
 
 

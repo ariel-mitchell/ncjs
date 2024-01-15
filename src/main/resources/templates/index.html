@@ -41,6 +41,7 @@
                     <th>State</th>
                     <th>Picture</th>
                     <th>Favorite</th>
+                    <th>Edit Trip</th>
                 </tr>
             </thead>
                 <tr th:each="trip: ${tripList}">
@@ -51,6 +52,11 @@
                     <td th:text="${trip.image}"></td>
                     <td>
                         <input type="checkbox" name="tripId" th:value="${trip.id}" th:checked="${trip.favorite}" />
+
+                    </td>
+
+                    <td>
+                        <a th:href="@{/trips/edit/{id}(id=${trip.id})}">Edit</a>
                     </td>
                 </tr>
             </table>
