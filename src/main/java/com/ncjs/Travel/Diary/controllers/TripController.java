@@ -60,7 +60,7 @@ public class TripController {
             for (int id : tripId) {
                 Trip trip = tripRepository.findById(id).orElse(null);
                 if (trip != null) {
-                    // Toggle the favorite status
+
                     trip.setFavorite(!trip.isFavorite());
                     tripRepository.save(trip);
                 }
