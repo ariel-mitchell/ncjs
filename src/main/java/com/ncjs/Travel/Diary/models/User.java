@@ -1,10 +1,10 @@
 package com.ncjs.Travel.Diary.models;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
@@ -17,7 +17,7 @@ public class User extends AbstractEntity {
 //    @NotBlank(message = "User Name is required.")
 //    @Size(max = 25, message = "Maximum Name length is 25 characters.")
     @NotNull(message = "User Name is required.")
-    private String userName;
+    private String username;
 
     @NotNull
     private String pwHash;
@@ -27,10 +27,10 @@ public class User extends AbstractEntity {
     @Size(max = 25, message = "Password is too many characters.")
     private String password;
 
-    @NotBlank(message = "Confirm password is required.")
-    @NotNull(message = "Confirm password is required.")
-    @Size(max = 25, message = "Confirm password is too many characters.")
-    private String confirmPassword;
+//    @NotBlank(message = "Confirm password is required.")
+//    @NotNull(message = "Confirm password is required.")
+//    @Size(max = 25, message = "Confirm password is too many characters.")
+//    private String confirmPassword;
 
     @NotBlank(message = "Email is required.")
     @NotNull(message = "Email is required.")
@@ -42,35 +42,38 @@ public class User extends AbstractEntity {
     private static final BCryptPasswordEncoder encoder =
             new BCryptPasswordEncoder();
 
-
     // constructors
     public User() { }
 
     // Initialize the id and value fields.
-    public User(String userName, String password,
+    public User(String username, String password,
                 String email, Boolean verified) {
         super();
-        this.userName = userName;
+        this.username = username;
         this.pwHash = encoder.encode(password);
         this.email = email;
         this.verified = false;
     }
 
     //  constructor
-    public User(String userName, String password,
+    public User(String username, String password,
                 String confirmPassword, String email, Boolean verified) {
         super();
     }
 
+    public User(String username, String password) {
+        super();
+    }
+
     // getters and setters
-    public String getUsername( ) { return userName; }
-    public void setUsername(String userName) { this.userName = userName; }
+    public String getUsername( ) { return username; }
+    public void setUsername(String userName) { this.username = username; }
 
     public String getPassword( ) { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getConfirmPassword( ) { return confirmPassword; }
-    public void setConfirmPassword(String confirm_password) { this.confirmPassword = confirm_password; }
+//    public String getConfirmPassword( ) { return confirmPassword; }
+//    public void setConfirmPassword(String confirm_password) { this.confirmPassword = confirm_password; }
 
     public String getEmail( ) { return email; }
     public void setEmail(String email) { this.email = email; }

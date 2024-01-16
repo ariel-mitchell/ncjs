@@ -1,6 +1,6 @@
 package com.ncjs.Travel.Diary.controllers;
 
-import com.ncjs.Travel.Diary.models.data.UserRepository;
+import com.ncjs.Travel.Diary.repository.UserRepository;
 import com.ncjs.Travel.Diary.service.UserService;
 import com.ncjs.Travel.Diary.web.dto.RegisterFormDto;
 

@@ -2,7 +2,7 @@ package com.ncjs.Travel.Diary;
 
 import com.ncjs.Travel.Diary.controllers.AuthenticationController;
 import com.ncjs.Travel.Diary.models.User;
-import com.ncjs.Travel.Diary.models.data.UserRepository;
+import com.ncjs.Travel.Diary.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

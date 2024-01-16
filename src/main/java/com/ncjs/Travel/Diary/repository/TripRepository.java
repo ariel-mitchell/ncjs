@@ -1,4 +1,4 @@
-package com.ncjs.Travel.Diary.models.data;
+package com.ncjs.Travel.Diary.repository;
 
 import com.ncjs.Travel.Diary.models.Trip;
 import org.springframework.data.repository.CrudRepository;

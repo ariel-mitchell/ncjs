@@ -1,7 +1,7 @@
 package com.ncjs.Travel.Diary.controllers;
 
 import com.ncjs.Travel.Diary.models.User;
-import com.ncjs.Travel.Diary.models.data.UserRepository;
+import com.ncjs.Travel.Diary.repository.UserRepository;
 import com.ncjs.Travel.Diary.web.dto.LoginFormDTO;
 import com.ncjs.Travel.Diary.web.dto.RegisterFormDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,10 +14,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
 @Controller
+@RequestMapping("")
 public class AuthenticationController {
 
     @Autowired
@@ -52,7 +54,7 @@ public class AuthenticationController {
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDto());
         model.addAttribute("title", "Register");
-        return "register";
+        return "users/register";
     }
 
     @PostMapping("/register")
@@ -64,7 +66,7 @@ public class AuthenticationController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
-            return "register";
+            return "users/register";
         }
 
         User existingUser =
@@ -76,7 +78,7 @@ public class AuthenticationController {
                     "username.already-exists",
                     "A user with that username already exists");
             model.addAttribute("title", "Register");
-            return "register";
+            return "users/register";
         }
 
         String password = registerFormDto.getPassword();
@@ -86,13 +88,18 @@ public class AuthenticationController {
                     "passwords.mismatch",
                     "Passwords do not match");
             model.addAttribute("title", "Register");
-            return "register";
+            return "users/register";
         }
 
         // At this point, the given username does NOT already exist
         // and the rest of the form data is valid.
         // Now create the user object, store it in the DB and create session.
-        User newUser = new User(registerFormDto.getUsername(), registerFormDto.getPassword());
+        User newUser = new User(
+                registerFormDto.getUsername(),
+                registerFormDto.getPassword(),
+                registerFormDto.getConfirmPassword(),
+                registerFormDto.getEmail(),
+                registerFormDto.getVerified());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
@@ -104,7 +111,7 @@ public class AuthenticationController {
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
-        return "login";
+        return "users/login";
     }
 
     @PostMapping("/login")
@@ -115,7 +122,7 @@ public class AuthenticationController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
-            return "login";
+            return "users/login";
         }
 
         User theUser =
@@ -127,7 +134,7 @@ public class AuthenticationController {
                     "user.invalid",
                     "The given username does not exist");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "users/login";
         }
 
         String password = loginFormDTO.getPassword();
@@ -138,7 +145,7 @@ public class AuthenticationController {
                     "password.invalid",
                     "Invalid password");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "users/login";
         }
 
         setUserInSession(request.getSession(), theUser);

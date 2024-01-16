@@ -14,9 +14,6 @@ public class RegisterFormDto extends LoginFormDTO {
                            String confirmPassword, String email,
                            Boolean verified) {
         super();
-//        this.userName = userName;
-//        this.password = password;
-// TODO is this confirmPassword even needed?
         this.confirmPassword = confirmPassword;
         this.email = email;
         this.verified = verified;
