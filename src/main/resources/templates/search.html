@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}">
+</head>
+<body>
+
+<div th:replace="~{fragments :: page-header}"></div>
+
+<div class="container body-content">
+
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+
+    <form th:action="@{/search/results}" method = "post">
+        <h2>Search Tags:</h2>
+<!--if I wanted to add options with what to search for-->
+<!--        <p>-->
+<!--            <span th:each="column : ${columns}">-->
+<!--                <input-->
+<!--                        type="radio"-->
+<!--                        name="searchType"-->
+<!--                        th:id="${column.key}"-->
+<!--                        th:value="${column.key}"-->
+<!--                        th:checked="${column.key == 'all'}"/>-->
+<!--                <label th:for="${column.key}" th:text="${column.value}"></label>-->
+<!--            </span>-->
+
+<!--        </p>-->
+
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
+
+        <input type="submit" value="Search" />
+    </form>
+
+    <hr />
+
+    <table class="trip-listing">
+        <tr th:each="trip : ${trips}">
+            <td>
+                <p>
+                    Trip Id:
+                    <a th:href="@{'/index/' + ${trip.id}}" th:text="${trip.id}"></a>
+                </p>
+                <p th:text="${'Name: ' + trip.name}"></p>
+                <p>
+                    Description:
+                    <a th:href="@{'/trip/index/' + ${trip.description}}" th:text="${job.description}"></a>
+                </p>
+                <p>
+                    Tags:
+                <ul th:each="tag : ${trip.tags}">
+                    <li>
+                        <a th:href="@{'/tags/index/' + ${tags.id}}" th:text="${tags.name}"></a>
+                    </li>
+                </ul>
+                </p>
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

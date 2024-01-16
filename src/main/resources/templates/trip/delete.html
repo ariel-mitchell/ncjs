@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Delete Trip</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <script th:src="@{/theme.js}"></script>
+</head>
+<body>
+<form action='/trips/delete' method='POST'>
+    <label th:each="trip : ${tripList}">
+        <input type="checkbox" name="tripId" th:value="${trip.id}" />
+        <span th:text="${trip.tripName}"></span>
+    </label>
+    <button type='submit'>Delete Trip</button>
+</form>
+</body>
+</html>
