@@ -6,10 +6,23 @@
 </head>
 <body class="container">
 
+<!-- Navigation bar -->
 <nav th:replace="~{fragments :: page-header}"></nav>
 
+<br>
+<br>
+
+<!-- HTML login form -->
 <h1>Login</h1>
 
+<!-- success message -->
+<div th:if="${param.success}">
+    <div class = "alert alert-info">
+        Registration Successful!
+    </div>
+</div>
+
+<!--<form method="post" style="max-width:600px;">-->
 <form method="post" style="max-width:600px;">
     <div class="form-group">
         <label th:for="username">User Name
@@ -33,7 +46,9 @@
 <br>
 <br>
 <p>Don't have an account?
-    <a href="/" th:href="@{/users/register}">Create one.</a></p>
+<!--    <a href="/" th:href="@{/users/register}">Create one.</a>-->
+    <a href="/" th:href="@{users/register}">Create one.</a>
+</p>
 
 </body>
 </html>

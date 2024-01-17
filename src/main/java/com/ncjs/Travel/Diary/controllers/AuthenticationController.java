@@ -29,6 +29,10 @@ public class AuthenticationController {
     private static final String userSessionKey = "user";
 
     // handles session creation and lookup
+    private static void setUserInSession(HttpSession session, User user) {
+        session.setAttribute(userSessionKey, user.getId());
+    }
+
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -44,16 +48,14 @@ public class AuthenticationController {
         return user.get();
     }
 
-    private static void setUserInSession(HttpSession session, User user) {
-        session.setAttribute(userSessionKey, user.getId());
-    }
-
     // form processing
     // registration authentication
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
+    public String displayRegistrationForm(Model model, HttpSession session) {
         model.addAttribute(new RegisterFormDto());
         model.addAttribute("title", "Register");
+        model.addAttribute("loggedIn",
+            session.getAttribute(userSessionKey) != null);
         return "users/register";
     }
 
@@ -97,20 +99,23 @@ public class AuthenticationController {
         User newUser = new User(
                 registerFormDto.getUsername(),
                 registerFormDto.getPassword(),
-                registerFormDto.getConfirmPassword(),
                 registerFormDto.getEmail(),
                 registerFormDto.getVerified());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "users/register";
+        // send user to the next location
+//        return "redirect:";
     }
 
     // login authentication
     @GetMapping("/login")
-    public String displayLoginForm(Model model) {
+    public String displayLoginForm(Model model, HttpSession session) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
+        model.addAttribute("loggedIn",
+                session.getAttribute(userSessionKey) != null);
         return "users/login";
     }
 
@@ -143,7 +148,7 @@ public class AuthenticationController {
             errors.rejectValue(
                     "password",
                     "password.invalid",
-                    "Invalid password");
+                    "Credentials invalid. Please try again with correct username/password combination.");
             model.addAttribute("title", "Log In");
             return "users/login";
         }

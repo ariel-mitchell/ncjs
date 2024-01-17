@@ -21,10 +21,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public User save(RegisterFormDto registrationDto) {
        User user = new User(registrationDto.getUsername(),
-               registrationDto.getPassword(), registrationDto.getConfirmPassword(),
-               registrationDto.getEmail(), registrationDto.getVerified());
-//       at this time, the password will be stored as text.
-//       It can be encrypted later.
+               registrationDto.getPassword(),
+               registrationDto.getEmail(),
+               registrationDto.getVerified());
         return userRepository.save(user);
 
     }

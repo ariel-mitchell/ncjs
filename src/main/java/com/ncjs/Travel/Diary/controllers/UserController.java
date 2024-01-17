@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @ModelAttribute("user")
-    public RegisterFormDto userRegistrationDto() {
+    public RegisterFormDto registerFormDto() {
         return new RegisterFormDto();
     }
 
@@ -44,8 +44,8 @@ public class UserController {
     // which is bound to the user object registrationDto
     @PostMapping("register")
     public String registerUserAccount(@ModelAttribute("user")
-                                      RegisterFormDto registrationDto) {
-        userService.save(registrationDto);
+                                      RegisterFormDto registerFormDto) {
+        userService.save(registerFormDto);
         // TODO
         // return to the users/registration page with a Success message
         return "redirect:users/register?success";

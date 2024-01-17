@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <title>Account Registration</title>
 </head>
-<body class="container body-content">
+<body class="container">
 
 <!-- Navigation bar -->
 <nav th:replace="~{fragments :: page-header}"></nav>
 
+<br>
+<br>
+
 <!-- HTML registration form -->
 <h1>New User Registration</h1>
 
-<br>
-<br>
 <!-- success message -->
 <div th:if="${param.success}">
     <div class = "alert alert-info">
-        Registration Successful!
+        Login Successful!
     </div>
 </div>
 
 <!--<form method="post" style="max-width:600px;">-->
-<!--<form method="post" th:action="@{/users/register}" th:object="${user}">-->
 <form method="post">
     <div class="form-group">
         <label>User Name

@@ -13,7 +13,7 @@ public class LoginFormDTO {
 
     @NotNull(message = "Password is required.")
     @NotBlank(message = "Password is required.")
-    @Size(min = 5, max = 30, message = "Invalid password. Must be between 5 and 30 characters.")
+    @Size(min = 6, max = 30, message = "Invalid password. Must be between 6 and 30 characters.")
     private String password;
 
     // getters and setters

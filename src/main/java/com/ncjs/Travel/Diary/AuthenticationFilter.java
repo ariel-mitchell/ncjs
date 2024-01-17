@@ -16,17 +16,18 @@ import java.util.List;
 public class AuthenticationFilter implements HandlerInterceptor {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     AuthenticationController authenticationController;
 
+    @Autowired
+    UserRepository userRepository;
+
+    // whitelist: pages that anyone can see
     private static final List<String> whitelist =
             Arrays.asList("/login", "/register", "/logout", "/css");
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {
-            if (path.startsWith(pathRoot)) {
+            if (path.equals("/") || path.startsWith(pathRoot)) {
                 return true;
             }
         }
@@ -53,6 +54,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
         }
 
         // The user is NOT logged in
+        // TODO does this auto send them to the login pg after registration?
         response.sendRedirect("/login");
         return false;
     }
