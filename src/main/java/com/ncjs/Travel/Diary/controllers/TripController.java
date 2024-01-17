@@ -24,18 +24,20 @@ public class TripController {
         return "index";
     }
 
+
     @GetMapping("/trips/add")
-    public String addTripPage() {
+    public String addTripPage(Model model) {
+        model.addAttribute("trip", new Trip());
         return "form";
     }
 
+
     @PostMapping("/trips/add")
-
-    public String addTrip(@ModelAttribute Trip tripName) {
-        tripRepository.save(tripName);
+    public String renderTripDescription(@ModelAttribute Trip trip) {
+        tripRepository.save(trip);
         return "redirect:/trips";
-
     }
+
 
 
     @GetMapping("/trips/delete")
@@ -78,23 +80,6 @@ public class TripController {
         return "edit";
     }
 
-//    @PostMapping("/trips/edit/{id}")
-//    public String saveEditedTrip(@PathVariable String id, @RequestParam String tripName) {
-//
-//        int tripId = Integer.parseInt(id);
-//
-//        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-//
-//        if (optionalTrip.isPresent()) {
-//            // Update the trip name
-//            Trip trip = optionalTrip.get();
-//            trip.setTripName(tripName);
-//            trip.setDescription(description);
-//            tripRepository.save(trip);
-//        }
-//
-//        return "redirect:/trips";
-//    }
 
     @PostMapping("/trips/edit/{id}")
     public String saveEditedTrip(@PathVariable int id, @ModelAttribute Trip updatedTrip) {
@@ -103,7 +88,7 @@ public class TripController {
         if (optionalTrip.isPresent()) {
             Trip existingTrip = optionalTrip.get();
 
-            // Update fields
+
             existingTrip.setTripName(updatedTrip.getTripName());
             existingTrip.setDescription(updatedTrip.getDescription());
 
