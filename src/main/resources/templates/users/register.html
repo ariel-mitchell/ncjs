@@ -32,12 +32,12 @@
         <label>User Name
             <input
                 class="form-control"
-                th:field="${registerFormDto.username}"
+                th:field="${registerFormDto.getUsername()}"
                 required autofocus="autofocus"
             />
         </label>
         <p class="error"
-           th:errors="${registerFormDto.username}">
+           th:errors="${registerFormDto.getUsername()}">
         </p>
     </div>
 
