@@ -60,6 +60,8 @@ public class PasswordRecoveryController {
     @Autowired
     private UserRepository userRepository;
 
+    private User user;
+
     //ask for username form
     @GetMapping("recovery/ForgotPassword")
     public String displayForgotPasswordForm() {
@@ -104,21 +106,21 @@ public class PasswordRecoveryController {
     //          "Incorrect filename : " + fileName , err);
     //    }
     //    custom error! Make sure the thymeleaf error name is the same as the variable in this controller
-    @PostMapping("recovery/resetPassword")
-    public String processResetPasswordForm(@RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss,
-                                           @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword,
-                                           PasswordError error, Model model) {
-        try
-        {
-            if(user.PasswordSecurityQuestions.momMaidenName = )
-            {
-                throw new PasswordError("Not a valid response.");
-            }
-        }
-        catch(PasswordError )
-        {
-            // Process message however you would like
-        }
+//    @PostMapping("recovery/resetPassword")
+//    public String processResetPasswordForm(@RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss,
+//                                           @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword,
+//                                           PasswordError error, Model model) {
+//        try
+//        {
+//            if(user.PasswordSecurityQuestions.momMaidenName = )
+//            {
+//                throw new PasswordError("Not a valid response.");
+//            }
+//        }
+//        catch(PasswordError )
+//        {
+//            // Process message however you would like
+//        }
     }
 //        error
 //        if (errors.hasErrors()) {
@@ -127,5 +129,3 @@ public class PasswordRecoveryController {
 ////        UserRepository.save(submitUsername);
 //        return "redirect:";
 //    }
-
-}

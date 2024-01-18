@@ -24,8 +24,9 @@ public class TripController {
 
     @Autowired
     private TagRepository tagRepository;
-    @GetMapping("/")
+    @GetMapping("")
     public String displayHomePage(Model model) {
+       // model.addAttribute("title", "All trips");
         model.addAttribute("tripList", tripRepository.findAll());
        // model.addAttribute("tagList", tagRepository.findAll());
         return "trip/index";
@@ -44,14 +45,25 @@ public class TripController {
 
 //Nidia's add trip form
     @GetMapping("add")
-    public String addTripPage() {
+    public String addTripPage(Model model) {
+        model.addAttribute("title"," Add Trip");
+       model.addAttribute(new Trip());
         return "trip/form";
     }
 
     @PostMapping("add")
-    public String renderTripDescription(@ModelAttribute Trip trip) {
-        tripRepository.save(trip);
-        return "redirect:";
+    public String processCreateTagForm(@ModelAttribute @Valid Trip trip,
+                                       Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Create Trip");
+            model.addAttribute(trip);
+            return "trip/form";
+        }
+        tripRepository.save(new Trip(trip.getName));
+        return "trip/index";
+//    public String renderTripDescription(@ModelAttribute Trip trip) {
+//        tripRepository.save(trip);
+//        return "redirect:/trips";
     }
 //Nidia's delete trip form
     @GetMapping("delete")

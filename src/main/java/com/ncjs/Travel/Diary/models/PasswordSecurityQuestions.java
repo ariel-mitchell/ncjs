@@ -9,18 +9,7 @@ import jakarta.validation.constraints.Size;
 
 //does this need to extend abstract entity? --> NO
 @Entity
-public class PasswordSecurityQuestions {
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Id
-    @GeneratedValue
-    public int id;
+public class PasswordSecurityQuestions extends AbstractEntity{
     @Size(max = 100, message = "Please enter up to 100 characters")
     @NotBlank(message = "Required field, if unknown, please put 'unknown'")
     private String momMaidenName;

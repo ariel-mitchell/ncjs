@@ -11,38 +11,45 @@ import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Blob;
-import java.util.Objects;
+//import java.util.Objects;
 
 @Entity
 public class Trip extends AbstractEntity {
 
     @Size(min = 1, max = 50)
+    @NotBlank
     private String name;
 
     @ManyToMany
     private final List<Tag> tags = new ArrayList<>();
 
-    @ManyToOne
-    private com.ncjs.Travel.Diary.models.User User;
+//    @ManyToOne
+//    private com.ncjs.Travel.Diary.models.User User;
 
-    public Trip() {
+    public Trip(String name, String city, String state, String description, Blob image, boolean favorite) {
+        this.name = name;
+        this.city = city;
+        this.state = state;
+        this.description = description;
+        this.image = image;
+        this.favorite = favorite;
     }
 
-    ;
+    public Trip() {};
 
     // Initialize the id and value fields.
-    public Trip(User anUser) {
-        super();
-        this.User = anUser;
-    }
+//    public Trip(User anUser) {
+//        super();
+//        this.User = anUser;
+//    }
 
-    public com.ncjs.Travel.Diary.models.User getUser() {
-        return User;
-    }
-
-    public void setUser(com.ncjs.Travel.Diary.models.User user) {
-        User = user;
-    }
+//    public com.ncjs.Travel.Diary.models.User getUser() {
+//        return User;
+//    }
+//
+//    public void setUser(com.ncjs.Travel.Diary.models.User user) {
+//        User = user;
+//    }
 
     public List<Tag> getTags() {
         return tags;
@@ -106,14 +113,11 @@ public class Trip extends AbstractEntity {
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
     }
-
-    public String getName() {
-        return name;
-    }
-
+    public String getName() {return name;}
     public void setName(String name) {
         this.name = name;
     }
+
 }
 
 
