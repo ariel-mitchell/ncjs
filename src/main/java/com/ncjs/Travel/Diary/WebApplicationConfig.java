@@ -2,6 +2,7 @@ package com.ncjs.Travel.Diary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,7 +11,7 @@ public class WebApplicationConfig implements WebMvcConfigurer {
 
     // Create spring-managed object to allow the app to access our filter
     @Bean
-    public AuthenticationFilter authenticationFilter() {
+    public HandlerInterceptor authenticationFilter() {
         return new AuthenticationFilter();
     }
 

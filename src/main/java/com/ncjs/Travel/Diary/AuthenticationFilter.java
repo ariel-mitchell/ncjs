@@ -23,7 +23,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
 
     // whitelist: pages that anyone can see
     private static final List<String> whitelist =
-            Arrays.asList("/login", "/register", "/logout", "/css");
+            Arrays.asList("/users/login", "/users/register", "/logout", "/css");
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {
@@ -55,7 +55,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
 
         // The user is NOT logged in
         // TODO does this auto send them to the login pg after registration?
-        response.sendRedirect("/login");
+        response.sendRedirect("/users/login");
         return false;
     }
 

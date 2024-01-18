@@ -39,10 +39,6 @@ public class AuthenticationController {
     private static final String userSessionKey = "user";
 
     // handles session creation and lookup
-    private static void setUserInSession(HttpSession session, User user) {
-        session.setAttribute(userSessionKey, user.getId());
-    }
-
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -56,6 +52,10 @@ public class AuthenticationController {
         }
 
         return user.get();
+    }
+
+    private static void setUserInSession(HttpSession session, User user) {
+        session.setAttribute(userSessionKey, user.getId());
     }
 
     // form processing
@@ -106,15 +106,13 @@ public class AuthenticationController {
         // At this point, the given username does NOT already exist
         // and the rest of the form data is valid.
         // Now create the user object, store it in the DB and create session.
-        // TODO ask about how the userId gets into the DB?
         User newUser = new User(
                 registerFormDto.getUsername(),
                 registerFormDto.getPassword(),
                 registerFormDto.getEmail(),
                 registerFormDto.getVerified());
-// TODO Do I need to "add" before saving?
-//        User.add(newUser);
         userRepository.save(newUser);
+//  TODO figure out whether or not to use userService when using userRepository
 //        userService.save(registerFormDto);
 
         setUserInSession(request.getSession(), newUser);

@@ -13,9 +13,9 @@ import jakarta.validation.constraints.Size;
 // Would rather that email not be required to be unique - address later?
 public class User extends AbstractEntity {
 
-//    @Column(name = "user_name")
-//    @NotBlank(message = "User Name is required.")
-//    @Size(max = 25, message = "Maximum Name length is 25 characters.")
+    @Column(name = "user_name")
+    @NotBlank(message = "User Name is required.")
+    @Size(max = 25, message = "Maximum Name length is 25 characters.")
     @NotNull(message = "User Name is required.")
     private String username;
 
@@ -26,11 +26,6 @@ public class User extends AbstractEntity {
     @NotNull(message = "Password is required.")
     @Size(max = 25, message = "Password is too many characters.")
     private String password;
-
-//    @NotBlank(message = "Confirm password is required.")
-//    @NotNull(message = "Confirm password is required.")
-//    @Size(max = 25, message = "Confirm password is too many characters.")
-//    private String confirmPassword;
 
     @NotBlank(message = "Email is required.")
     @NotNull(message = "Email is required.")

@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Account Registration</title>
 </head>
-<body class="container body-content>
+<body class="container body-content">
 
 <!-- Navigation bar -->
-<!-- <nav th:replace="~{fragments=""
-<!-- <nav th:replace="~{fragments :: page-header}"></nav> -->
+<nav th:replace="~{fragments :: page-header}"></nav>
 
 <br>
 <br>
@@ -18,27 +17,30 @@
 
 <!-- success message -->
 <div th:if="${param.success}">
-    <div class = "alert alert-info">
+    <div class="alert alert-info">
         Registration Successful!
     </div>
 </div>
 <p th:text="${errorMsg}" style="color:red;"></p>
 
-<!--<form method="post" style="max-width:600px;">-->
-<!--<form method="post">-->
-<form method="post" th:action="@{/users/register}" th:object="${user}">
+<!-- <form method="post" style="max-width:600px;"> -->
+<!-- <form method="post"> -->
+<form method="post"
+      th:action="@{/users/register}"
+      th:object="${user}">
     <div class="form-group">
         <label>User Name
             <input
-                    class="form-control"
-                    th:field="${registerFormDto.username}"
-                    required autofocus="autofocus" />
+                class="form-control"
+                th:field="${registerFormDto.username}"
+                required autofocus="autofocus"
+            />
         </label>
         <p class="error"
-           th:errors="${registerFormDto.username}"
-           style="color:red;">
+           th:errors="${registerFormDto.username}">
         </p>
     </div>
+
     <div class="form-group">
         <label>Password
             <input class="form-control"
@@ -46,8 +48,10 @@
                    th:field="${registerFormDto.password}"
                    required autofocus="autofocus" />
         </label>
-        <p class="error" th:errors="${registerFormDto.password}"></p>
+        <p class="error"
+           th:errors="${registerFormDto.password}"></p>
     </div>
+
     <div class="form-group">
         <label>Confirm Password
             <input class="form-control"
@@ -60,6 +64,7 @@
            style="color:red;">
         </p>
     </div>
+
     <div class="form-group">
         <label>Email
             <input class="form-control"
@@ -71,9 +76,11 @@
            style="color:red;">
         </p>
     </div>
+
     <input type="submit"
            class="btn btn-success"
            value="Create Account" />
+
 </form>
 
 <br>
