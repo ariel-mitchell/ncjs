@@ -1,3 +1,4 @@
+<script>
 .body-content {
     margin-top: 72px;
 }
@@ -30,3 +31,4 @@ label {
 .centered {
     text-align: center;
 }
+</script>

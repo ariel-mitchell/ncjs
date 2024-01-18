@@ -8,9 +8,9 @@ import java.sql.*;
 public class Connector {
 
     public Connection con;
-    private final String URL = "jdbc:mysql://localhost:8800/traveldiary";
-    private final String USERNAME = "localhost";
-    private final String PASSWORD = "Traveldiary1!";
+    private final String URL = "jdbc:mysql://localhost:8080/traveldiary";
+    private final String USERNAME = "traveldiary";
+    private final String PASSWORD = "traveldiary";
 
     /* Add DB Connection */
     public void add() {
