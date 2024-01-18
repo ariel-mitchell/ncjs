@@ -18,7 +18,7 @@
 <!-- success message -->
 <div th:if="${param.success}">
     <div class = "alert alert-info">
-        Registration Successful!
+        Login Successful!
     </div>
 </div>
 
@@ -29,7 +29,10 @@
             <input class="form-control"
                    th:field="${loginFormDTO.username}">
         </label>
-        <p class="error" th:errors="${loginFormDTO.username}"></p>
+        <p class="error"
+           th:errors="${loginFormDTO.username}"
+           style="color:red;">
+        </p>
     </div>
     <div class="form-group">
         <label>Password
@@ -37,7 +40,10 @@
                    th:field="${loginFormDTO.password}"
                    type="password">
         </label>
-        <p class="error" th:errors="${loginFormDTO.password}"></p>
+        <p class="error"
+           th:errors="${loginFormDTO.password}"
+           style="color:red;">
+        </p>
     </div>
 
     <input type="submit" class="btn btn-primary" value="Log In" />

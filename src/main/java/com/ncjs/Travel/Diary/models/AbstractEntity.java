@@ -1,3 +1,4 @@
+// Used to get at the id data in tables
 package com.ncjs.Travel.Diary.models;
 
 import jakarta.persistence.GeneratedValue;

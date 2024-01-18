@@ -1,10 +1,11 @@
 package com.ncjs.Travel.Diary.web.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class RegisterFormDto extends LoginFormDTO {
+public class RegisterFormDTO extends LoginFormDTO {
 
     @NotNull(message = "Confirm Password is required.")
     @NotBlank(message = "Confirm Password is required.")
@@ -16,15 +17,16 @@ public class RegisterFormDto extends LoginFormDTO {
     @NotBlank(message = "Email is required.")
     @Size(min = 6, max = 30,
         message = "Invalid Email. Must be between 6 and 30 characters.")
+    @Email(message = "Invalid email. Try again.")
     private String email;
 
     private Boolean verified;
 
     // null constructor
-    public RegisterFormDto() { }
+    public RegisterFormDTO() { }
 
     // parameterized constructor
-    public RegisterFormDto(String userName, String password,
+    public RegisterFormDTO(String userName, String password,
                            String confirmPassword, String email,
                            Boolean verified) {
         super();

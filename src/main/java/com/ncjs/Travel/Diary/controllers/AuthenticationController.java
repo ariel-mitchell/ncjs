@@ -2,8 +2,9 @@ package com.ncjs.Travel.Diary.controllers;
 
 import com.ncjs.Travel.Diary.models.User;
 import com.ncjs.Travel.Diary.repository.UserRepository;
+import com.ncjs.Travel.Diary.service.UserService;
 import com.ncjs.Travel.Diary.web.dto.LoginFormDTO;
-import com.ncjs.Travel.Diary.web.dto.RegisterFormDto;
+import com.ncjs.Travel.Diary.web.dto.RegisterFormDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -21,6 +22,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping("")
 public class AuthenticationController {
+// TODO Should this controller extend TravelDiaryApplication?
+//public class AuthenticationController extends TravelDiaryApplication {
+// TODO - or should this include a constructor like the lines below?
+// constructor
+//public UserController(UserService userService) {
+//    super();
+//    this.userService = userService;
+//}
+
 
     @Autowired
     UserRepository userRepository;
@@ -52,7 +62,7 @@ public class AuthenticationController {
     // registration authentication
     @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
-        model.addAttribute(new RegisterFormDto());
+        model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         model.addAttribute("loggedIn",
             session.getAttribute(userSessionKey) != null);
@@ -61,7 +71,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String processRegistrationForm(
-            @ModelAttribute @Valid RegisterFormDto registerFormDto,
+            @ModelAttribute @Valid RegisterFormDTO registerFormDto,
             Errors errors,
             HttpServletRequest request,
             Model model) {
@@ -96,15 +106,21 @@ public class AuthenticationController {
         // At this point, the given username does NOT already exist
         // and the rest of the form data is valid.
         // Now create the user object, store it in the DB and create session.
+        // TODO ask about how the userId gets into the DB?
         User newUser = new User(
                 registerFormDto.getUsername(),
                 registerFormDto.getPassword(),
                 registerFormDto.getEmail(),
                 registerFormDto.getVerified());
+// TODO Do I need to "add" before saving?
+//        User.add(newUser);
         userRepository.save(newUser);
+//        userService.save(registerFormDto);
+
         setUserInSession(request.getSession(), newUser);
 
-        return "users/register";
+        // return to the users/registration page with a Success message
+        return "redirect:users/register?success";
         // send user to the next location
 //        return "redirect:";
     }
@@ -125,6 +141,7 @@ public class AuthenticationController {
             Errors errors, HttpServletRequest request,
             Model model) {
 
+// TODO ask re: attributeName "title"
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
             return "users/login";

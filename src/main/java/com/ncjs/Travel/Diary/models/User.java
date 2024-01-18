@@ -1,6 +1,8 @@
+// Used to get at the data in the user table
 package com.ncjs.Travel.Diary.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,8 +11,6 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 // Would rather that email not be required to be unique - address later?
-//@Table(name = "user")
-//@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User extends AbstractEntity {
 
 //    @Column(name = "user_name")
@@ -35,6 +35,7 @@ public class User extends AbstractEntity {
     @NotBlank(message = "Email is required.")
     @NotNull(message = "Email is required.")
     @Size(max = 50, message = "Maximum Email length is 50 characters.")
+    @Email(message = "Invalid email. Try again.")
     private String email;
 
     private Boolean verified;

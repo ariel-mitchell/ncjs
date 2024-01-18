@@ -2,7 +2,7 @@ package com.ncjs.Travel.Diary.controllers;
 
 import com.ncjs.Travel.Diary.repository.UserRepository;
 import com.ncjs.Travel.Diary.service.UserService;
-import com.ncjs.Travel.Diary.web.dto.RegisterFormDto;
+import com.ncjs.Travel.Diary.web.dto.RegisterFormDTO;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +28,14 @@ public class UserController {
     }
 
     @ModelAttribute("user")
-    public RegisterFormDto registerFormDto() {
-        return new RegisterFormDto();
+    public RegisterFormDTO registerFormDto() {
+        return new RegisterFormDTO();
     }
 
     // data handlers
     @GetMapping("register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute(new RegisterFormDto());
+        model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
         return "users/register";
     }
@@ -44,9 +44,9 @@ public class UserController {
     // which is bound to the user object registrationDto
     @PostMapping("register")
     public String registerUserAccount(@ModelAttribute("user")
-                                      RegisterFormDto registerFormDto) {
+                                      RegisterFormDTO registerFormDto) {
         userService.save(registerFormDto);
-        // TODO
+       // TODO
         // return to the users/registration page with a Success message
         return "redirect:users/register?success";
     }
