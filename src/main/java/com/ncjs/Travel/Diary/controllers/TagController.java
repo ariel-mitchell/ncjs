@@ -11,28 +11,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-
+//import org.springframework.web.bind.annotation.*;
+//import java.util.*;
 @Controller
+@RequestMapping ("tags")
 public class TagController {
 
     @Autowired
     TagRepository tagRepository;
 
-    @GetMapping("/tags")
+    @GetMapping("")
     public String displayTags(Model model) {
         model.addAttribute("title", "All Tags");
         model.addAttribute("tags", tagRepository.findAll());
         return "tags/index";
     }
 
-    @GetMapping("/tags/create")
+    @GetMapping("/create")
     public String displayCreateTagForm(Model model) {
         model.addAttribute("title", "Create Tag");
         model.addAttribute(new Tag());
         return "tags/create";
 
     }
-    @PostMapping("/tags/create")
+    @PostMapping("/create")
     public String processCreateTagForm(@ModelAttribute @Valid Tag tag,
                                        Errors errors, Model model) {
         if (errors.hasErrors()) {
@@ -40,7 +42,7 @@ public class TagController {
             model.addAttribute(tag);
             return "tags/create";
         }
-        tagRepository.save(new Tag());
-        return "redirect:/tags";
+        tagRepository.save(new Tag(tag.getName()));
+        return "tags/index";
     }
 }

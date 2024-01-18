@@ -6,6 +6,7 @@
 //(2) Password reset and repeat new password must match
 //(3) Password must be at least 1 character
 package com.ncjs.Travel.Diary.controllers;
+import com.ncjs.Travel.Diary.models.PasswordError;
 import com.ncjs.Travel.Diary.models.User;
 import com.ncjs.Travel.Diary.data.UserRepository;
 import jakarta.validation.Valid;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 //I wanted to create a page for my recovery page. This is what I have with the information I'm working with.
 //currently thinking of more elegant solutions bc i'm not workingn on user controller, i have made their own password controller
@@ -51,43 +54,78 @@ import org.springframework.web.bind.annotation.*;
 //1) find out how she's hashing passwords and what she does to set these passwords in the database
 //then just replicate that process
 @Controller
-@RequestMapping("/recovery")
+//@RequestMapping("/recovery")
 public class PasswordRecoveryController {
 
     @Autowired
     private UserRepository userRepository;
 
     //ask for username form
-    @GetMapping("/ResetPasswordWithSecurityQuestions")
-    public String passwordAccessform(Model model) {
-        //model.addAttribute("user",UserRepository.findAll());
+    @GetMapping("recovery/ForgotPassword")
+    public String displayForgotPasswordForm() {
         return "recovery/ForgotPassword";
     }
 //processing request username form
-    @PostMapping ("/ResetPassword With Security Questions")
-    public String processPasswordAccessForm(Model model){
-
-        return
-    }
-    //new password form
-    @GetMapping("addAnswers")
-    public String displayAddAnswerForm(Model model) {
-      //  model.addAttribute(new User());
-        return "recovery/ResetPasswordWithSecurityQuestions";
-    }
-//it will return to this URL
-    //not new user figure this one out?
-
-    //process new password form
-    @PostMapping("add")
-    public String processAddAnswersForm(@ModelAttribute @Valid User newUser,
-                                         Errors errors, Model model) {
-
-        if (errors.hasErrors()) {
+    @PostMapping ("recovery/ForgotPassword")
+    public String processForgotPasswordForm(@RequestParam String submitUsername, Model model) {
+        Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(submitUsername));
+        if (optUser.isEmpty()) {
+            return "redirect:recovery/ForgotPassword";
+        } else {
+            User user = optUser.get();
+            model.addAttribute("user",user);
             return "recovery/ResetPasswordWithSecurityQuestions";
         }
-//        UserRepository.save(newUser);
-        return "redirect:";
     }
+    //new password form
+    @GetMapping("recovery/resetPassword")
+    public String displayResetPasswordForm() {
+        return "recovery/ResetPasswordWithSecurityQuestions";
+    }
+
+// verify that all answers are from the user we set before
+    //verify that all of their security questions are answered correctly AKA compare to registration security questions already set in the userrepository
+    //verify that the resetpassword and repeatnewpassword are the same --> make sure that it is changed
+
+    //process new password form
+    //errors make sure that things are valid
+    //errors that we are talking about are in the model class of the variables --> if you don't have that, u don't need it. But if things don't match we can use the errors to makes a custom error
+    // initalize error as a variable in this handler
+    //validatation using string but ideally error --> set error messages
+    //try (Scanner file = new Scanner(new File(fileName))) {
+    //    if (file.hasNextLine()) {
+    //        return file.nextLine();
+    //    } else {
+    //        throw new IllegalArgumentException("Non readable file");
+    //    }
+    //} catch (FileNotFoundException err) {
+    //    if (!isCorrectFileName(fileName)) {
+    //        throw new IncorrectFileNameException(
+    //          "Incorrect filename : " + fileName , err);
+    //    }
+    //    custom error! Make sure the thymeleaf error name is the same as the variable in this controller
+    @PostMapping("recovery/resetPassword")
+    public String processResetPasswordForm(@RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss,
+                                           @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword,
+                                           PasswordError error, Model model) {
+        try
+        {
+            if(user.PasswordSecurityQuestions.momMaidenName = )
+            {
+                throw new PasswordError("Not a valid response.");
+            }
+        }
+        catch(PasswordError )
+        {
+            // Process message however you would like
+        }
+    }
+//        error
+//        if (errors.hasErrors()) {
+//            return "recovery/ResetPasswordWithSecurityQuestions";
+//        }
+////        UserRepository.save(submitUsername);
+//        return "redirect:";
+//    }
 
 }

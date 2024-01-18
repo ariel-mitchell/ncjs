@@ -12,24 +12,24 @@ public class AbstractEntity {
     @Id
     @GeneratedValue
     private int id;
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 150, message = "Name must be between 3 and 150 characters long")
-    private String name;
+//    @NotBlank(message = "Name is required")
+//    @Size(min = 3, max = 150, message = "Name must be between 3 and 150 characters long")
+//    private String name;
 
     public int getId() {
         return id;
     }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
 
     @Override
     public boolean equals(Object o) {

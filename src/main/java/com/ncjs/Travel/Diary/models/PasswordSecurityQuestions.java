@@ -1,14 +1,26 @@
 package com.ncjs.Travel.Diary.models;
 
-import com.ncjs.Travel.Diary.models.AbstractEntity;
+//import com.ncjs.Travel.Diary.models.AbstractEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 //does this need to extend abstract entity? --> NO
 @Entity
-public class PasswordSecurityQuestions extends AbstractEntity {
+public class PasswordSecurityQuestions {
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue
+    public int id;
     @Size(max = 100, message = "Please enter up to 100 characters")
     @NotBlank(message = "Required field, if unknown, please put 'unknown'")
     private String momMaidenName;

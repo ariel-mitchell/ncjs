@@ -20,18 +20,18 @@
 <div id="add">
     <a class="addTrip" href="/trips/add">Add a trip</a> <br>
     <a class="deleteTrip" href="/trips/delete">Delete a trip</a> <br>
+    <a class="addTag" href="/tags/create">Create a tag</a> <br>
 
     <button onclick="changeTheme()">Change Theme</button>
 
 
 
     <main>
-        <p th:unless="${tripList} and ${tripList.size()}">
-            <em>There are no trips at this time. Add a trip!</em>
+        <p th:unless="${tripList != null and tripList.size() > 0}">
+        <em>There are no trips at this time. Add a trip!</em>
         </p>
 
-        <th:block th:if="${tripList} and ${tripList.size()}">
-            <form action='/trips/favorite' method='POST'>
+            <form action='/trips/favorite' method="post">
                 <table class ="table table-striped">
                     <thead>
                     <tr>
@@ -46,7 +46,7 @@
                     </thead>
                     <tr th:each="trip: ${tripList}">
                         <td th:text="${trip.id}"></td>
-                        <td th:text="${trip.tripName}"></td>
+                        <td th:text="${trip.name}"></td>
                         <td th:text="${trip.city}"></td>
                         <td th:text="${trip.state}"></td>
                         <td th:text="${trip.image}"></td>

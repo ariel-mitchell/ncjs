@@ -4,14 +4,14 @@
 <body class="container  body-content">
 <h1>Add Tag</h1>
 
-
-<form method="post" style="max-width:600px;">
+<a class="tripsLink" href="/trips"> Trips</a>
+<form action= '/trips/add-tag' method="post" style="max-width:600px;">
     <div class="form-group">
 <input type ="hidden" th:field ="${tripTag.trip}">
         <select th:field="${tripTag.tag}">
             <option th:each="tag:${tags}"
                     th:value = "${tag.id}"
-                    th:text = "${tag.name"
+                    th:text = "${tag.name}"
                     ></option>
         </select>
     </div>

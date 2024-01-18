@@ -2,6 +2,8 @@ package com.ncjs.Travel.Diary.models;
 //package controllers;
 //package data;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 //import jakarta.validation.Valid;
 //import jakarta.validation.constraints.NotBlank;
 //import jakarta.validation.constraints.NotNull;
@@ -9,9 +11,13 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Blob;
+import java.util.Objects;
 
 @Entity
 public class Trip extends AbstractEntity {
+
+    @Size(min = 1, max = 50)
+    private String name;
 
     @ManyToMany
     private final List<Tag> tags = new ArrayList<>();
@@ -19,7 +25,11 @@ public class Trip extends AbstractEntity {
     @ManyToOne
     private com.ncjs.Travel.Diary.models.User User;
 
-    public Trip() {};
+    public Trip() {
+    }
+
+    ;
+
     // Initialize the id and value fields.
     public Trip(User anUser) {
         super();
@@ -37,14 +47,15 @@ public class Trip extends AbstractEntity {
     public List<Tag> getTags() {
         return tags;
     }
-public void addTag(Tag tag) {
-        this.tags.add(tag);
-}
-public void removeTag(Tag tag) {
-        this.tags.remove(tag);
-}
 
-//Nidia's Code for trip
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
+//public void removeTag(Tag tag) {
+//        this.tags.remove(tag);
+//}
+
+    //Nidia's Code for trip
     private String city;
 
     public String getCity() {
@@ -95,7 +106,16 @@ public void removeTag(Tag tag) {
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+
 
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @Valid

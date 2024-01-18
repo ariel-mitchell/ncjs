@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@RequestMapping ("trips")
 public class TripController {
 
     //basic trip set up
@@ -23,27 +24,44 @@ public class TripController {
 
     @Autowired
     private TagRepository tagRepository;
-    @GetMapping("/trips")
-
+    @GetMapping("/")
     public String displayHomePage(Model model) {
         model.addAttribute("tripList", tripRepository.findAll());
-        //model.addAttribute("tagList", tagRepository.findAll());
-        return "/trip/index";
+       // model.addAttribute("tagList", tagRepository.findAll());
+        return "trip/index";
     }
+
+//    @GetMapping("/")
+//    public String displayHomePage(Model model) {
+//        Iterable<Trip> trips = tripRepository.findAll();
+//        for (Trip trip : trips) {
+//            // Fetch tags for each trip to avoid lazy loading issues
+//            trip.getTags().size(); // This triggers the loading of tags
+//        }
+//        model.addAttribute("tripList", trips);
+//        return "trip/index";
+//    }
+
 //Nidia's add trip form
-    @GetMapping("/trips/add")
+    @GetMapping("add")
     public String addTripPage() {
         return "trip/form";
     }
+
+    @PostMapping("add")
+    public String renderTripDescription(@ModelAttribute Trip trip) {
+        tripRepository.save(trip);
+        return "redirect:";
+    }
 //Nidia's delete trip form
-    @GetMapping("/trips/delete")
+    @GetMapping("delete")
     public String displayDeleteForm(Model model) {
         model.addAttribute("tripList", tripRepository.findAll());
-        return "/trip/delete";
+        return "delete";
     }
     // Nidia's process delete form
     //delete by id and find by id respository --> accesses crud methods
-    @PostMapping("/trips/delete")
+    @PostMapping("delete")
     public String processDeleteForm(@RequestParam(required = false) int[] tripId) {
         for(int id: tripId) {
             tripRepository.deleteById(id);
@@ -52,7 +70,7 @@ public class TripController {
         return "redirect:/trips";
     }
 //Nidia's Favorite Trips
-    @PostMapping("/trips/favorite")
+    @PostMapping("favorite")
     public String updateFavorites(@RequestParam(required = false) int[] tripId) {
         if (tripId != null) {
             for (int id : tripId) {
@@ -71,20 +89,20 @@ public class TripController {
 
 //Jess's Add tag within Trip Controller
     //responds to /trips/add-tag?tripId=24
-    @GetMapping("/trips/add-tag")
+    @GetMapping("add-tag")
     public String displayAddTagForm(@RequestParam Integer tripId, Model model){
         Optional<Trip> result = tripRepository.findById(tripId);
         Trip trip = result.get();
         model.addAttribute("title", "Add Tag to: " + trip.getName());
         model.addAttribute("tags", tagRepository.findAll());
-        model.addAttribute("trip", trip);
+//        model.addAttribute("trip", trip);
         //model.addAttribute("tripTag", new triptagDTO());
         triptagDTO tripTag = new triptagDTO();
      tripTag.setTrip(trip);
          model.addAttribute("tripTag", tripTag);
         return "trip/add-tag.html";
     }
-    @PostMapping("/trips/add-tag")
+    @PostMapping("add-tag")
     public String processAddTagForm(@ModelAttribute @Valid triptagDTO tripTag,
                                     Errors errors,
                                     Model model){
@@ -101,5 +119,6 @@ if (!errors.hasErrors()) {
 return "redirect:add-tag";
     }
 }
-//mapping is when we are redirecting, when we return redirect we are returning to the url which is read through the get and post request mapping
+//mapping is when we are redirecting,
+// //when we return redirect we are returning to the url which is read through the get and post request mapping
 //when returning something like index or add, it will return the templates

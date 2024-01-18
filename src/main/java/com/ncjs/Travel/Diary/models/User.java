@@ -2,22 +2,22 @@
 //so this user will extend abstract entity which will hold a unique id. It includes username and password that will be able to be retrieved via security questions.
 // consider making password "set" if i want to reset password and not have password be retrieved? something to think about.
 package com.ncjs.Travel.Diary.models;
-import com.ncjs.Travel.Diary.models.AbstractEntity;
+//import com.ncjs.Travel.Diary.models.AbstractEntity;
 import com.ncjs.Travel.Diary.models.PasswordSecurityQuestions;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
     @Entity
-    public class User extends AbstractEntity {
+    public class User {
     //setting password specific security questions to user in database as a 1:1
     //setting it to "valid" to check the insides (specific questions) of the passwordsecurityquestions
     //making it "Not null" to check that it is not null since it is necessary for mandatory password recovery service
 
 //    @OneToMany
 //    private Trip Trip; ????????????
-
+@Id
+@GeneratedValue
+public int id;
         @OneToOne (cascade = CascadeType.ALL)
         @Valid
         private PasswordSecurityQuestions passwordSecurityQuestions;
@@ -34,11 +34,22 @@ import jakarta.validation.constraints.NotNull;
         private String email;
 
         public User() {}
+        private Boolean verified;
 
-        public User(String username, String password, String email) {
+        public User(int id, String username, String password, String email, Boolean verified) {
+            this.id = id;
             this.username = username;
             this.pwHash = password;
             this.email = email;
+            this.verified = false;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getUsername() {
@@ -60,6 +71,9 @@ import jakarta.validation.constraints.NotNull;
         public void setEmail(String email) {
             this.email = email;
         }
+
+        public Boolean getVerified( ) { return verified; }
+        public void setVerified(Boolean verified) { this.verified = verified; }
 
         public PasswordSecurityQuestions getPasswordSecurityQuestions() {
             return passwordSecurityQuestions;
