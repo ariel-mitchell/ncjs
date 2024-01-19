@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="header">
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <script th:src="@{/theme.js}"></script>
+
+
+</head>
+<body>
+<form action ='add' method='POST'>
+    <div class="form-group">
+        <label>Name
+            <input th:field="${trip.name}" class="form-control">
+        </label>
+        <span th:errors="${trip.name}" class="error"></span>
+    </div>
+    <input type="submit" value="Add" class="btn btn-primary">
+</form>
+</body>
+</html>
+
+
+<!--before Code Edits-->
+<!--</head>-->
+<!--<body>-->
+<!--<form action='add' method='POST'>-->
+<!--    <label for='trips'>Trip:</label>-->
+<!--    <input type='text' id='trips' name='${trips.name}' required/><br>-->
+<!--    <button type='submit'>Add Trip</button>-->
+
+<!--</form>-->
+
+<!--</body>-->
+<!--</html>-->

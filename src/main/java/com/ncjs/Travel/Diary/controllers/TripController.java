@@ -18,7 +18,7 @@ import java.util.*;
 @RequestMapping ("trips")
 public class TripController {
 
-    //basic trip set up
+    //basic trips set up
     @Autowired
     private TripRepository tripRepository;
 
@@ -29,43 +29,56 @@ public class TripController {
        // model.addAttribute("title", "All trips");
         model.addAttribute("tripList", tripRepository.findAll());
        // model.addAttribute("tagList", tagRepository.findAll());
-        return "trip/index";
+        return "trips/index";
     }
 
 //    @GetMapping("/")
 //    public String displayHomePage(Model model) {
 //        Iterable<Trip> trips = tripRepository.findAll();
-//        for (Trip trip : trips) {
-//            // Fetch tags for each trip to avoid lazy loading issues
-//            trip.getTags().size(); // This triggers the loading of tags
+//        for (Trip trips : trips) {
+//            // Fetch tags for each trips to avoid lazy loading issues
+//            trips.getTags().size(); // This triggers the loading of tags
 //        }
 //        model.addAttribute("tripList", trips);
-//        return "trip/index";
+//        return "trips/index";
 //    }
 
-//Nidia's add trip form
+//Nidia's add trips form
     @GetMapping("add")
     public String addTripPage(Model model) {
         model.addAttribute("title"," Add Trip");
        model.addAttribute(new Trip());
-        return "trip/form";
+        return "trips/form";
     }
-
-    @PostMapping("add")
-    public String processCreateTagForm(@ModelAttribute @Valid Trip trip,
+    @PostMapping("/add")
+    public String processCreateTripForm(@ModelAttribute @Valid Trip trip,
                                        Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create Trip");
             model.addAttribute(trip);
-            return "trip/form";
+            return "trips/add";
         }
-        tripRepository.save(new Trip(trip.getName));
-        return "trip/index";
-//    public String renderTripDescription(@ModelAttribute Trip trip) {
-//        tripRepository.save(trip);
-//        return "redirect:/trips";
+        tripRepository.save(trip);
+        return "trips/index";
     }
-//Nidia's delete trip form
+//    @PostMapping("add")
+//        public String renderTripDescription(@ModelAttribute Trip trips) {
+//        tripRepository.save(trips);
+//        return "redirect:/trips";
+
+
+
+//    public String processCreateTagForm(@ModelAttribute @Valid Trip trips,
+//                                       Errors errors, Model model) {
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Create Trip");
+//            model.addAttribute(trips);
+//            return "trips/form";
+//        }
+//        tripRepository.save(new Trip(trips.getName));
+//        return "trips/index";
+
+//Nidia's delete trips form
     @GetMapping("delete")
     public String displayDeleteForm(Model model) {
         model.addAttribute("tripList", tripRepository.findAll());
@@ -101,18 +114,17 @@ public class TripController {
 
 //Jess's Add tag within Trip Controller
     //responds to /trips/add-tag?tripId=24
-    @GetMapping("add-tag")
-    public String displayAddTagForm(@RequestParam Integer tripId, Model model){
+    @GetMapping("add-tag/{tripId}")
+    public String displayAddTagForm(Model model, @PathVariable int tripId){
         Optional<Trip> result = tripRepository.findById(tripId);
         Trip trip = result.get();
         model.addAttribute("title", "Add Tag to: " + trip.getName());
         model.addAttribute("tags", tagRepository.findAll());
-//        model.addAttribute("trip", trip);
-        //model.addAttribute("tripTag", new triptagDTO());
+        model.addAttribute("trips", trip);
         triptagDTO tripTag = new triptagDTO();
      tripTag.setTrip(trip);
          model.addAttribute("tripTag", tripTag);
-        return "trip/add-tag.html";
+        return "trips/add-tag";
     }
     @PostMapping("add-tag")
     public String processAddTagForm(@ModelAttribute @Valid triptagDTO tripTag,
@@ -125,10 +137,10 @@ if (!errors.hasErrors()) {
         trip.addTag(tag);
         tripRepository.save(trip);
     }
-    //idk where to redirectbut I'm getting to the index or add trip?
-    return "redirect:trips?tripId=" + trip.getId();
+    //idk where to redirectbut I'm getting to the index or add trips?
+    return "redirect:/trips";
 }
-return "redirect:add-tag";
+return "redirect:/trips";
     }
 }
 //mapping is when we are redirecting,

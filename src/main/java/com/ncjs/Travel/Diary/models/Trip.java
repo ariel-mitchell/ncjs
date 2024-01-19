@@ -31,7 +31,6 @@ public class Trip extends AbstractEntity {
         this.city = city;
         this.state = state;
         this.description = description;
-        this.image = image;
         this.favorite = favorite;
     }
 
@@ -62,7 +61,7 @@ public class Trip extends AbstractEntity {
 //        this.tags.remove(tag);
 //}
 
-    //Nidia's Code for trip
+    //Nidia's Code for trips
     private String city;
 
     public String getCity() {
@@ -94,16 +93,6 @@ public class Trip extends AbstractEntity {
         this.description = description;
     }
 
-    private Blob image;
-
-    public Blob getImage() {
-        return image;
-    }
-
-    public void setImage(Blob image) {
-        this.image = image;
-    }
-
     private boolean favorite;
 
     public boolean isFavorite() {
@@ -128,6 +117,6 @@ public class Trip extends AbstractEntity {
 //}
 
 // Does Trip Extend Abstract Entity if it has its own ID that is seperate from unique user ID?
-//Ask Nidia --> Should be option to add photos or images. Presumably each trip has its own table which will
+//Ask Nidia --> Should be option to add photos or images. Presumably each trips has its own table which will
 // have the options to add photos and tags to those photos along with the description --> connect to TripRepository
-// will this be in trip controller or will it be an images controller
+// will this be in trips controller or will it be an images controller

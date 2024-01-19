@@ -15,9 +15,9 @@
 <!--    </div>-->
 
 <!--<div id="add">-->
-<!--    <a class="addTrip" href="/trips/add">Add a trip</a> <br>-->
-<!--    <a class="deleteTrip" href="/trips/delete">Delete a trip</a> <br>-->
-    <a class="addTag" href="/trips/add-tag">Add tags</a> <br>
+<!--    <a class="addTrip" href="/trips/add">Add a trips</a> <br>-->
+<!--&lt;!&ndash;    <a class="deleteTrip" href="/trips/delete">Delete a trips</a> <br>&ndash;&gt;-->
+<!--    <a class="addTag" href="/trips/add-tag">Add tags</a> <br>-->
 
     <button onclick="changeTheme()">Change Theme</button>
 
@@ -25,10 +25,10 @@
 
     <main>
 <!--        <p th:unless="${tripList != null and tripList.size() > 0}">-->
-<!--        <em>There are no trips at this time. Add a trip!</em>-->
+<!--        <em>There are no trips at this time. Add a trips!</em>-->
 <!--        </p>-->
         <th:block th:if="${tripList} and ${tripList.size()}">
-            <form action='/trip/favorite' method="post">
+            <form action='/trips/favorite' method="post">
                 <table class ="table table-striped">
                     <thead>
                     <tr>
@@ -36,7 +36,6 @@
                         <th>Trip</th>
                         <th>City</th>
                         <th>State</th>
-                        <th>Picture</th>
                         <th>Favorite</th>
                         <th>Tags</th>
                     </tr>
@@ -46,27 +45,30 @@
                         <td th:text="${trip.getName}"></td>
                         <td th:text="${trip.getCity}"></td>
                         <td th:text="${trip.getState}"></td>
-                        <td th:text="${trip.getImage}"></td>
-                        <td th:text="${trip.getTags}"></td>
-
-<!--                            <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>-->
-
-<!--                        <td th:text="${trip.tags}"></td>-->
-<!--                        <label for="tags">Tags</label><br>-->
-<!--                        <input type="text" id="fname" name="fname"><br>-->
-
-                    <td th:each="tag : ${tags}"
-                     th:text="${tag.displayName}"></td>
                         <td>
                             <input type="checkbox" name="tripId" th:value="${trip.getId}" th:checked="${trip.favorite}"/>
                         </td>
+                        <td th:each="tag : ${trip.getTags}"
+                            th:text="${tag.displayName}"></td>
+                        <td>
+                        <a th:href="@{'/trips/add-tag/'+${trip.getId}}">Add Tag</a>
+                        </td>
+
+<!--                            <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>-->
+
+<!--                        <td th:text="${trips.tags}"></td>-->
+<!--                        <label for="tags">Tags</label><br>-->
+<!--                        <input type="text" id="fname" name="fname"><br>-->
+<!--th:text="${tag.displayName}"></td>-->
+
+
                     </tr>
                 </table>
                 <button type='submit'>Update Favorites</button>
 <!--                <button type='submit'>Create Tags</button>-->
 <!--                <a th:ref = "/trips/add-tag">Add Tag</a>-->
-<!--                <a th:href="'/trips/add-tag?tripId=' + ${trip.id}">Add Tag</a>-->
-<!--                <a th:href="@{/trips/edit/{id}(id=${trip.id})}">Edit</a>-->
+<!--                <a th:href="'/trips/add-tag?tripId=' + ${trips.id}">Add Tag</a>-->
+<!--                <a th:href="@{/trips/edit/{id}(id=${trips.id})}">Edit</a>-->
             </form>
         </th:block>
     </main>
