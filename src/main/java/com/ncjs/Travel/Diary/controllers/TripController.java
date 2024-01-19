@@ -126,7 +126,7 @@ public class TripController {
          model.addAttribute("tripTag", tripTag);
         return "trips/add-tag";
     }
-    @PostMapping("add-tag")
+    @PostMapping("add-tag/{tripId}")
     public String processAddTagForm(@ModelAttribute @Valid triptagDTO tripTag,
                                     Errors errors,
                                     Model model){

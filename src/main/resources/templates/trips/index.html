@@ -48,8 +48,10 @@
                         <td>
                             <input type="checkbox" name="tripId" th:value="${trip.getId}" th:checked="${trip.favorite}"/>
                         </td>
-                        <td th:each="tag : ${trip.getTags}"
-                            th:text="${tag.displayName}"></td>
+
+                        <td> <p th:each="tag : ${trip.getTags}"
+                            th:text="${tag.displayName}"></p></td>
+
                         <td>
                         <a th:href="@{'/trips/add-tag/'+${trip.getId}}">Add Tag</a>
                         </td>

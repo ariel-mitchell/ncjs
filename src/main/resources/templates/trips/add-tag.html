@@ -3,9 +3,9 @@
 <head th:replace="~{fragments :: head}"></head>
 <body class="container  body-content">
 <h1>Add Tag</h1>
-<!--action= '/trips/add-tag/{tripId}'-->
+
 <a class="tripsLink" href="/trips"> Trips</a>
-<form method="post" style="max-width:600px;">
+<form action= '/trips/add-tag/{tripId}' method="post" style="max-width:600px;">
     <div class="form-group">
 <input type ="hidden" th:field ="${tripTag.trip}">
         <select th:field="${tripTag.tag}">
