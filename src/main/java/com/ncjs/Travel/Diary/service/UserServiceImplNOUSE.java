@@ -8,22 +8,22 @@ import com.ncjs.Travel.Diary.web.dto.RegisterFormDTO;
 import com.ncjs.Travel.Diary.models.User;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImplNOUSE implements UserServiceNOUSE {
 
     @Autowired
     private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImplNOUSE(UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
     }
 
     @Override
-    public User save(RegisterFormDTO registrationDto) {
-       User user = new User(registrationDto.getUsername(),
-               registrationDto.getPassword(),
-               registrationDto.getEmail(),
-               registrationDto.getVerified());
+    public User save(RegisterFormDTO registerFormDTO) {
+       User user = new User(registerFormDTO.getUsername(),
+               registerFormDTO.getPassword(),
+               registerFormDTO.getEmail(),
+               registerFormDTO.getVerified());
         return userRepository.save(user);
 
     }

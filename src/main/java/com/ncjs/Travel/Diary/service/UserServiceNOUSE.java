@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public interface UserService {
+public interface UserServiceNOUSE {
 
     // method to save registration information
-    User save(RegisterFormDTO registerFormDto);
+    User save(RegisterFormDTO registerFormDTO);
 
 }

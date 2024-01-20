@@ -2,7 +2,6 @@ package com.ncjs.Travel.Diary.controllers;
 
 import com.ncjs.Travel.Diary.models.User;
 import com.ncjs.Travel.Diary.repository.UserRepository;
-import com.ncjs.Travel.Diary.service.UserService;
 import com.ncjs.Travel.Diary.web.dto.LoginFormDTO;
 import com.ncjs.Travel.Diary.web.dto.RegisterFormDTO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,11 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/users")
 public class AuthenticationController {
-// TODO Should this controller extend TravelDiaryApplication?
-//public class AuthenticationController extends TravelDiaryApplication {
-// TODO - or should this include a constructor like the lines below?
+// TODO - should this include a constructor like the lines below?
 // constructor
 //public UserController(UserService userService) {
 //    super();
@@ -71,7 +68,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String processRegistrationForm(
-            @ModelAttribute @Valid RegisterFormDTO registerFormDto,
+            @ModelAttribute @Valid RegisterFormDTO registerFormDTO,
             Errors errors,
             HttpServletRequest request,
             Model model) {
@@ -82,7 +79,7 @@ public class AuthenticationController {
         }
 
         User existingUser =
-            userRepository.findByUsername(registerFormDto.getUsername());
+            userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
             errors.rejectValue(
@@ -93,8 +90,8 @@ public class AuthenticationController {
             return "users/register";
         }
 
-        String password = registerFormDto.getPassword();
-        String verifyPassword = registerFormDto.getConfirmPassword();
+        String password = registerFormDTO.getPassword();
+        String verifyPassword = registerFormDTO.getConfirmPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password",
                     "passwords.mismatch",
@@ -107,13 +104,13 @@ public class AuthenticationController {
         // and the rest of the form data is valid.
         // Now create the user object, store it in the DB and create session.
         User newUser = new User(
-                registerFormDto.getUsername(),
-                registerFormDto.getPassword(),
-                registerFormDto.getEmail(),
-                registerFormDto.getVerified());
+                registerFormDTO.getUsername(),
+                registerFormDTO.getPassword(),
+                registerFormDTO.getEmail(),
+                registerFormDTO.getVerified());
         userRepository.save(newUser);
 //  TODO figure out whether or not to use userService when using userRepository
-//        userService.save(registerFormDto);
+//        userService.save(registerFormDTO);
 
         setUserInSession(request.getSession(), newUser);
 

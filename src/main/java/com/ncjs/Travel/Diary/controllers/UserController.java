@@ -1,107 +1,107 @@
-package com.ncjs.Travel.Diary.controllers;
-
-import com.ncjs.Travel.Diary.repository.UserRepository;
-import com.ncjs.Travel.Diary.service.UserService;
-import com.ncjs.Travel.Diary.web.dto.RegisterFormDTO;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Controller
-@RequestMapping("users/")
-public class UserController {
-//public class RegistrationController extends TravelDiaryApplication {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserService userService;
-
-    // constructor
-    public UserController(UserService userService) {
-        super();
-        this.userService = userService;
-    }
-
-    @ModelAttribute("user")
-    public RegisterFormDTO registerFormDto() {
-        return new RegisterFormDTO();
-    }
-
-    // data handlers
-    @GetMapping("register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute(new RegisterFormDTO());
-        model.addAttribute("title", "Register");
-        return "users/register";
-    }
-
-    // The ModelAttribute contains the user form data,
-    // which is bound to the user object registrationDto
-    @PostMapping("register")
-    public String registerUserAccount(@ModelAttribute("user")
-                                      RegisterFormDTO registerFormDto) {
-        userService.save(registerFormDto);
-       // TODO
-        // return to the users/registration page with a Success message
-        return "redirect:users/register?success";
-    }
-
-//    // handle home page request
-//    @GetMapping("/index")
-//    public String home() { return "index"; }
+//package com.ncjs.Travel.Diary.controllers;
 //
-    // handler for user registration form
+//import com.ncjs.Travel.Diary.repository.UserRepository;
+//import com.ncjs.Travel.Diary.service.UserService;
+//import com.ncjs.Travel.Diary.web.dto.RegisterFormDTO;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.*;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//
+//@Controller
+//@RequestMapping("users/")
+//public class UserController {
+////public class RegistrationController extends TravelDiaryApplication {
+//
+//    @Autowired
+//    private UserRepository userRepository;
+//
+//    @Autowired
+//    private UserService userService;
+//
+//    // constructor
+//    public UserController(UserService userService) {
+//        super();
+//        this.userService = userService;
+//    }
+//
+//    @ModelAttribute("user")
+//    public RegisterFormDTO registerFormDTO() {
+//        return new RegisterFormDTO();
+//    }
+//
+//    // data handlers
 //    @GetMapping("register")
-//    public String displayAddUserForm(Model model) {
-//        // create model object to store form data
-//        model.addAttribute(new User());
+//    public String showRegistrationForm(Model model) {
+//        model.addAttribute(new RegisterFormDTO());
+//        model.addAttribute("title", "Register");
 //        return "users/register";
 //    }
 //
+//    // The ModelAttribute contains the user form data,
+//    // which is bound to the user object registerFormDTO
 //    @PostMapping("register")
-//    public String processAddUserForm(@ModelAttribute @Valid User newUser,
-//                                         Errors errors, Model model) {
-//        if (errors.hasErrors()) {
-//            return "/users/register";
-//        }
-//        userRepository.save(newUser);
-//        return "redirect:";
+//    public String registerUserAccount(@ModelAttribute("user")
+//                                      RegisterFormDTO registerFormDTO) {
+//        userService.save(registerFormDTO);
+//       // TODO
+//        // return to the users/registration page with a Success message
+//        return "redirect:users/register?success";
 //    }
 //
-//    // handler for login form
-//    @GetMapping("login")
-//    public String displayLoginForm(Model model) {
-//        // create model object to store form data
+////    // handle home page request
+////    @GetMapping("/index")
+////    public String home() { return "index"; }
+////
+//    // handler for user registration form
+////    @GetMapping("register")
+////    public String displayAddUserForm(Model model) {
+////        // create model object to store form data
 ////        model.addAttribute(new User());
-//        return "users/login";
-//    }
-
-//    @PostMapping("login")
-//    public String processLoginForm(@ModelAttribute @Valid User newUser,
-//                                     Errors errors, Model model) {
-//        if (errors.hasErrors()) {
-//            return "users/login";
-//        }
-//        userRepository.save(newUser);
-//        return "redirect:";
-//    }
-
-//    @GetMapping("view/{userId}")
-//    public String displayViewUser(Model model, @PathVariable int userId) {
-//        Optional optUser = userRepository.findById(userId);
-//        if (optUser.isPresent()) {
-//            Users user = (Users) optUser.get();
-//            model.addAttribute("user", user);
-//            return "users/register";
-//        } else {
-//            return "redirect:../";
-//        }
+////        return "users/register";
+////    }
+////
+////    @PostMapping("register")
+////    public String processAddUserForm(@ModelAttribute @Valid User newUser,
+////                                         Errors errors, Model model) {
+////        if (errors.hasErrors()) {
+////            return "/users/register";
+////        }
+////        userRepository.save(newUser);
+////        return "redirect:";
+////    }
+////
+////    // handler for login form
+////    @GetMapping("login")
+////    public String displayLoginForm(Model model) {
+////        // create model object to store form data
+//////        model.addAttribute(new User());
+////        return "users/login";
+////    }
 //
-//    }
-
-}
+////    @PostMapping("login")
+////    public String processLoginForm(@ModelAttribute @Valid User newUser,
+////                                     Errors errors, Model model) {
+////        if (errors.hasErrors()) {
+////            return "users/login";
+////        }
+////        userRepository.save(newUser);
+////        return "redirect:";
+////    }
+//
+////    @GetMapping("view/{userId}")
+////    public String displayViewUser(Model model, @PathVariable int userId) {
+////        Optional optUser = userRepository.findById(userId);
+////        if (optUser.isPresent()) {
+////            Users user = (Users) optUser.get();
+////            model.addAttribute("user", user);
+////            return "users/register";
+////        } else {
+////            return "redirect:../";
+////        }
+////
+////    }
+//
+//}
