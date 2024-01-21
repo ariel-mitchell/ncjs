@@ -33,7 +33,7 @@ public class User extends AbstractEntity {
     @Email(message = "Invalid email. Try again.")
     private String email;
 
-    private Boolean verified;
+    private Boolean emailVerified;
 
     private static final BCryptPasswordEncoder encoder =
             new BCryptPasswordEncoder();
@@ -43,17 +43,17 @@ public class User extends AbstractEntity {
 
     // Initialize the id and value fields.
     public User(String username, String password,
-                String email, Boolean verified) {
+                String email, Boolean emailVerified) {
         super();
         this.username = username;
         this.pwHash = encoder.encode(password);
         this.email = email;
-        this.verified = false;
+        this.emailVerified = false;
     }
 
     //  constructor
     public User(String username, String password,
-                String confirmPassword, String email, Boolean verified) {
+                String confirmPassword, String email, Boolean emailVerified) {
         super();
     }
 
@@ -71,8 +71,10 @@ public class User extends AbstractEntity {
     public String getEmail( ) { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Boolean getVerified( ) { return verified; }
-    public void setVerified(Boolean verified) { this.verified = verified; }
+    public Boolean getEmailVerified( ) { return emailVerified; }
+    public void setEmailVerified(Boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
 
     // methods
     public boolean isMatchingPassword(String password) {

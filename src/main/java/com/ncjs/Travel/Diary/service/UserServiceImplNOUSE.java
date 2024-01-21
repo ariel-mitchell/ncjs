@@ -23,7 +23,7 @@ public class UserServiceImplNOUSE implements UserServiceNOUSE {
        User user = new User(registerFormDTO.getUsername(),
                registerFormDTO.getPassword(),
                registerFormDTO.getEmail(),
-               registerFormDTO.getVerified());
+               registerFormDTO.getEmailVerified());
         return userRepository.save(user);
 
     }

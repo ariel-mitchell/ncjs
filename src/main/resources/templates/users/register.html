@@ -16,11 +16,11 @@
 <h1>New User Registration</h1>
 
 <!-- success message -->
-<div th:if="${param.success}">
-    <div class="alert alert-info">
-        Registration Successful!
-    </div>
-</div>
+<!--<div th:if="${param.success}">-->
+<!--    <div class="alert alert-info">-->
+<!--        Registration Successful!-->
+<!--    </div>-->
+<!--</div>-->
 <p th:text="${errorMsg}" style="color:red;"></p>
 
 <!-- <form method="post" style="max-width:600px;"> -->
@@ -86,7 +86,8 @@
 
 <br>
 <p>Already registered?
-    <a href="/" th:href="@{/users/login}">Login</a>
+<!--    <a href="/" th:href="@{/users/login}">Login</a>-->
+    <a href="/users/login">Login</a>
 </p>
 
 </body>

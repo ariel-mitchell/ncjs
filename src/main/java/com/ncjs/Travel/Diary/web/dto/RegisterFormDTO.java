@@ -20,7 +20,7 @@ public class RegisterFormDTO extends LoginFormDTO {
     @Email(message = "Invalid email. Try again.")
     private String email;
 
-    private Boolean verified;
+    private Boolean emailVerified;
 
     // null constructor
     public RegisterFormDTO() { }
@@ -28,23 +28,23 @@ public class RegisterFormDTO extends LoginFormDTO {
     // parameterized constructor
     public RegisterFormDTO(String userName, String password,
                            String confirmPassword, String email,
-                           Boolean verified) {
+                           Boolean emailVerified) {
         super();
         this.confirmPassword = confirmPassword;
         this.email = email;
-        this.verified = verified;
+        this.emailVerified = emailVerified;
     }
 
     // getters and setters
     public String getConfirmPassword( ) { return confirmPassword; }
-//    public void setConfirmPassword(String confirmPassword) {
-//        this.confirmPassword = confirmPassword;
-//    }
+    // no need to set confirmPassword because we are not saving it.
 
     public String getEmail( ) { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Boolean getVerified( ) { return verified; }
-    public void setVerified(Boolean verified) { this.verified = verified; }
+    public Boolean getEmailVerified( ) { return emailVerified; }
+    public void setEmailVerified(Boolean verified) {
+        this.emailVerified = verified;
+    }
 
 }

@@ -107,7 +107,15 @@ public class AuthenticationController {
                 registerFormDTO.getUsername(),
                 registerFormDTO.getPassword(),
                 registerFormDTO.getEmail(),
-                registerFormDTO.getVerified());
+                registerFormDTO.getEmailVerified()git add
+        );
+
+//                User newUser = new User(
+//                registerFormDTO.getUsername(),
+//                registerFormDTO.getPassword(),
+//                registerFormDTO.getEmail()
+//        );
+
         userRepository.save(newUser);
 //  TODO figure out whether or not to use userService when using userRepository
 //        userService.save(registerFormDTO);
