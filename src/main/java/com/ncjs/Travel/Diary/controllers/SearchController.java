@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//do i need a list controller? Everything Below Please Fix
+import java.util.ArrayList;
+import java.util.List;
+
+//same page 1 get 1 post mapping. same page
 //
 @Controller
 @RequestMapping("search")
@@ -30,26 +33,50 @@ public class SearchController {
         return "search/search";
     }
     @PostMapping("")
-    public String processSearch(Model model) {
+    public String processSearch(Model model, @RequestParam String searchTerm) {
+        List<Trip> allTrips = (List<Trip>) tripRepository.findAll();
+        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
+            model.addAttribute("trips", allTrips);
+        } else {
+            ArrayList<Trip> trips = new ArrayList<>();
+            for (Trip trip : allTrips) {
+                for(Tag tag: trip.getTags()) {
+                    if (tag.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                        trips.add(trip);
+                    }
+                }
+            }
+            model.addAttribute("trips", trips);
+        }
+        model.addAttribute("All Trips", tripRepository.findAll());
+        model.addAttribute("title", "Trips with " + searchTerm);
         return "search/index";
     }
 ////This processes the searchbar bar form and displays the results @localhost:8080/search/index
     //it returns the template index html file which is in search folder
+    //@ModelAttribute @Valid triptagDTO tripTag,
 //    // TODO #3 - Create a handler to process a search request and render the updated search view.
-    @PostMapping("/index")
-    public String displaySearchResults(Model model, @RequestParam String searchTerm, @ModelAttribute @Valid triptagDTO tripTag, Trip trip){
-        Iterable<Trip> trips;
-        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
-            trips = tripRepository.findAll();
-        } else {
-            trips = (tagRepository.findByName(searchTerm)).getTrips();
-            //trips = tagRepository.findById(searchTerm);
-        }
-        model.addAttribute("title", "Trips with " + searchTerm);
-        model.addAttribute("trips", trips);
-
-        return "search/index";
-    }
+//    @PostMapping("index")
+//    public String displaySearchResults(Model model, @RequestParam String searchTerm){
+//        ArrayList<Trip> trips = null;
+//        Iterable<Trip> allTrips = tripRepository.findAll();
+//        System.out.println(allTrips);
+//        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
+//            System.out.println(allTrips);
+//            model.addAttribute("trips", allTrips);
+//        } else {
+//            for (Trip trip : allTrips) {
+//                if(trip.getTags().contains(searchTerm)) {
+//                    trips.add(trip);
+//                }
+//        }
+//            System.out.println(trips);
+//            model.addAttribute("trips", trips);
+//        }
+//        model.addAttribute("All Trips", tripRepository.findAll());
+//        model.addAttribute("title", "Trips with " + searchTerm);
+//        return "search/index";
+//    }
 }
 
 

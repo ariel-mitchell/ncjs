@@ -11,8 +11,7 @@
 <body>
     <header th:replace="~{fragments :: header}"></header>
 <button onclick="changeTheme()">Change Theme</button>
-
-    <table class="trip-listing">
+    <table class ="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
@@ -23,17 +22,54 @@
             <th>Tags</th>
         </tr>
         </thead>
-        <tr th:each="trip : ${tripList}">
+        <tr th:each="trip: ${trips}">
             <td th:text="${trip.getId}"></td>
             <td th:text="${trip.getName}"></td>
             <td th:text="${trip.getCity}"></td>
             <td th:text="${trip.getState}"></td>
-            <td th:text="${trip.isFavorite}"></td>
             <td>
-                <span th:each="tag : ${trip.getTags}" th:text="${tag.displayName}"></span>
+                <input type="checkbox" name="tripId" th:value="${trip.getId}" th:checked="${trip.isFavorite}"/>
             </td>
+
+            <td> <p th:each="tag : ${trip.getTags}"
+                    th:text="${tag.displayName}"></p></td>
+
+            <td>
+                <a th:href="@{'/trips/add-tag/'+${trip.getId}}">Add Tag</a>
+            </td>
+
+            <!--                            <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>-->
+
+            <!--                        <td th:text="${trips.tags}"></td>-->
+            <!--                        <label for="tags">Tags</label><br>-->
+            <!--                        <input type="text" id="fname" name="fname"><br>-->
+            <!--th:text="${tag.displayName}"></td>-->
+
+
         </tr>
     </table>
+<!--    <table class="trip-listing">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>Trip</th>-->
+<!--            <th>City</th>-->
+<!--            <th>State</th>-->
+<!--            <th>Favorite</th>-->
+<!--            <th>Tags</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tr th:each="trip : ${trips}">-->
+<!--            <td th:text="${trip.getId}"></td>-->
+<!--            <td th:text="${trip.getName}"></td>-->
+<!--            <td th:text="${trip.getCity}"></td>-->
+<!--            <td th:text="${trip.getState}"></td>-->
+<!--            <td th:text="${trip.isFavorite}"></td>-->
+<!--            <td>-->
+<!--                <span th:each="tag : ${trip.getTags}" th:text="${tag.displayName}"></span>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
 
 
 </body>
