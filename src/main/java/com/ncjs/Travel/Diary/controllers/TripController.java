@@ -137,7 +137,7 @@ if (!errors.hasErrors()) {
         trip.addTag(tag);
         tripRepository.save(trip);
     }
-    //idk where to redirectbut I'm getting to the index or add trips?
+    //idk where to redirect but I'm getting to the index or add trips?
     return "redirect:/trips";
 }
 return "redirect:/trips";

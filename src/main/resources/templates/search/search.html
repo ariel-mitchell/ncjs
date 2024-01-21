@@ -1,17 +1,84 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}">
 </head>
 <body>
 
-<div th:replace="~{fragments :: page-header}"></div>
+<!--<div th:replace="~{fragments :: page-header}"></div>-->
 
 <div class="container body-content">
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
-    <form th:action="@{/search/results}" method = "post">
+    <form th:action="@{/search}" method="post">
         <h2>Search Tags:</h2>
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
+        <input type="submit" value="Search" />
+    </form>
+</div>
+</body>
+</html>
+
+
+<!-- pre edits -->
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org/">-->
+<!--<head th:replace="~{fragments :: head}">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div th:replace="~{fragments :: page-header}"></div>-->
+
+<!--<div class="container body-content">-->
+
+<!--    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>-->
+
+<!--    <form th:action="@{/search/results}" method = "post"/>-->
+<!--        <h2>Search Tags:</h2>-->
+<!--</div>-->
+<!--        <p>-->
+<!--            <label for="searchTerm">Keyword:</label>-->
+<!--            <input type="text" name="searchTerm" id="searchTerm" />-->
+<!--        </p>-->
+
+<!--        <input type="submit" value="Search" />-->
+<!--&lt;!&ndash;    <hr/>&ndash;&gt;-->
+
+<!--    <table class="trip-listing">-->
+<!--        <th:block th:if="${tripList} and ${tripList.size()}">-->
+<!--            <table class ="table table-striped">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>ID</th>-->
+<!--                    <th>Trip</th>-->
+<!--                    <th>City</th>-->
+<!--                    <th>State</th>-->
+<!--                    <th>Favorite</th>-->
+<!--                    <th>Tags</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <th:block th:each="trip : ${tag.getTrips}">-->
+<!--                    <tr  th:each="trip: ${tripList}">-->
+<!--                        <td th:text="${trip.getId}"></td>-->
+<!--                        <td th:text="${trip.getName}"></td>-->
+<!--                        <td th:text="${trip.getCity}"></td>-->
+<!--                        <td th:text="${trip.getState}"></td>-->
+<!--                        <td th:text="${trip.isFavorite}"></td>-->
+<!--                        <p th:each="tag : ${trip.getTags}"-->
+<!--                           th:text="${tag.displayName}"></p>-->
+<!--                    </tr>-->
+<!--                </th:block>-->
+<!--            </table>-->
+<!--            </table>-->
+<!--            </th:block>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!--if I wanted to add options with what to search for-->
 <!--        <p>-->
 <!--            <span th:each="column : ${columns}">-->
@@ -26,42 +93,27 @@
 
 <!--        </p>-->
 
-        <p>
-            <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
-        </p>
 
-        <input type="submit" value="Search" />
-    </form>
+<!--        <tr th:each="trip : ${trips}">-->
+<!--            <td>-->
+<!--                <p>-->
+<!--                    Trip Id:-->
+<!--                    <a th:href="@{'/index/' + ${trip.id}}" th:text="${trip.id}"></a>-->
+<!--                </p>-->
+<!--                <p th:text="${'Name: ' + trip.name}"></p>-->
+<!--                <p>-->
+<!--                    Description:-->
+<!--                    <a th:href="@{'/trip/index/' + ${trip.description}}" th:text="${job.description}"></a>-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    Tags:-->
+<!--                <ul th:each="tag : ${trip.tags}">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{'/tags/index/' + ${tags.id}}" th:text="${tags.name}"></a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                </p>-->
 
-    <hr />
+<!--            </td>-->
+<!--        </tr>-->
 
-    <table class="trip-listing">
-        <tr th:each="trip : ${trips}">
-            <td>
-                <p>
-                    Trip Id:
-                    <a th:href="@{'/index/' + ${trip.id}}" th:text="${trip.id}"></a>
-                </p>
-                <p th:text="${'Name: ' + trip.name}"></p>
-                <p>
-                    Description:
-                    <a th:href="@{'/trip/index/' + ${trip.description}}" th:text="${job.description}"></a>
-                </p>
-                <p>
-                    Tags:
-                <ul th:each="tag : ${trip.tags}">
-                    <li>
-                        <a th:href="@{'/tags/index/' + ${tags.id}}" th:text="${tags.name}"></a>
-                    </li>
-                </ul>
-                </p>
-
-            </td>
-        </tr>
-    </table>
-
-</div>
-
-</body>
-</html>

@@ -21,12 +21,13 @@
 
     <button onclick="changeTheme()">Change Theme</button>
 
-</div>
 
     <main>
 <!--        <p th:unless="${tripList != null and tripList.size() > 0}">-->
 <!--        <em>There are no trips at this time. Add a trips!</em>-->
-<!--        </p>-->
+        <!-- adding a {tripId} to the action and the controller mapping path makes it "No static resources in trips/favorite" -->
+<!-- without it tho, it has the error of bad JPA transaction -->
+        <!--        </p>-->
         <th:block th:if="${tripList} and ${tripList.size()}">
             <form action='/trips/favorite' method="post">
                 <table class ="table table-striped">
@@ -46,7 +47,7 @@
                         <td th:text="${trip.getCity}"></td>
                         <td th:text="${trip.getState}"></td>
                         <td>
-                            <input type="checkbox" name="tripId" th:value="${trip.getId}" th:checked="${trip.favorite}"/>
+                            <input type="checkbox" name="tripId" th:value="${trip.getId}" th:checked="${trip.isFavorite}"/>
                         </td>
 
                         <td> <p th:each="tag : ${trip.getTags}"
