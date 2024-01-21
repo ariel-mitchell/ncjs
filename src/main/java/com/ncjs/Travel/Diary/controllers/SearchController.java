@@ -24,12 +24,15 @@ public class SearchController {
 
     //This pulls up the searchbar form @ localhost:8080/search
     //it returns the template search(html file) in search (folder)
-    @RequestMapping("")
-    public String search(Model model) {
+    @GetMapping("")
+    public String displaySearch(Model model) {
         model.addAttribute("title", "Search");
         return "search/search";
     }
-
+    @PostMapping("")
+    public String processSearch(Model model) {
+        return "search/index";
+    }
 ////This processes the searchbar bar form and displays the results @localhost:8080/search/index
     //it returns the template index html file which is in search folder
 //    // TODO #3 - Create a handler to process a search request and render the updated search view.
