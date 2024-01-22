@@ -64,7 +64,8 @@ public class PasswordRecoveryController {
 
     //ask for username form
     @GetMapping("recovery/ForgotPassword")
-    public String displayForgotPasswordForm() {
+    public String displayForgotPasswordForm(Model model) {
+        model.addAttribute("title", "Forgot Password?");
         return "recovery/ForgotPassword";
     }
 //processing request username form
@@ -81,9 +82,12 @@ public class PasswordRecoveryController {
     }
     //new password form
     @GetMapping("recovery/resetPassword")
-    public String displayResetPasswordForm() {
+    public String displayResetPasswordForm(Model model) {
+        model.addAttribute("title", "Reset Password");
         return "recovery/ResetPasswordWithSecurityQuestions";
     }
+
+
 
 // verify that all answers are from the user we set before
     //verify that all of their security questions are answered correctly AKA compare to registration security questions already set in the userrepository
@@ -94,6 +98,8 @@ public class PasswordRecoveryController {
     //errors that we are talking about are in the model class of the variables --> if you don't have that, u don't need it. But if things don't match we can use the errors to makes a custom error
     // initalize error as a variable in this handler
     //validatation using string but ideally error --> set error messages
+
+
     //try (Scanner file = new Scanner(new File(fileName))) {
     //    if (file.hasNextLine()) {
     //        return file.nextLine();
