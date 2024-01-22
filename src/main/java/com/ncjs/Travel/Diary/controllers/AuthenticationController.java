@@ -8,29 +8,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
 public class AuthenticationController {
-// TODO - should this include a constructor like the lines below?
-// constructor
-//public UserController(UserService userService) {
-//    super();
-//    this.userService = userService;
-//}
-
 
     @Autowired
     UserRepository userRepository;
+
+    // password encoder
+    public static final BCryptPasswordEncoder encoder =
+            new BCryptPasswordEncoder();
 
     // userSessionKey stores user IDs
     private static final String userSessionKey = "user";
@@ -67,37 +64,45 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(
-            @ModelAttribute @Valid RegisterFormDTO registerFormDTO,
+//    public String processRegistrationForm(
+    public ResponseEntity<?> processRegistrationForm(
+            @RequestBody @Valid RegisterFormDTO registerFormDTO,
+//    @ModelAttribute @Valid RegisterFormDTO registerFormDTO,
             Errors errors,
             HttpServletRequest request,
             Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
-            return "users/register";
+//            model.addAttribute("title", "Register");
+            System.out.println(errors.getAllErrors());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//            return "users/register";
         }
 
         User existingUser =
             userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue(
-                    "username",
-                    "username.already-exists",
-                    "A user with that username already exists");
-            model.addAttribute("title", "Register");
-            return "users/register";
+            return new ResponseEntity<String>(
+                    "Username already exists",
+                    HttpStatus.CONFLICT);
+//            errors.rejectValue(
+//                    "username",
+//                    "username.already-exists",
+//                    "A user with that username already exists");
+//            model.addAttribute("title", "Register");
+//            return "users/register";
         }
 
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getConfirmPassword();
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password",
-                    "passwords.mismatch",
-                    "Passwords do not match");
-            model.addAttribute("title", "Register");
-            return "users/register";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//            errors.rejectValue("password",
+//                    "passwords.mismatch",
+//                    "Passwords do not match");
+//            model.addAttribute("title", "Register");
+//            return "users/register";
         }
 
         // At this point, the given username does NOT already exist
@@ -105,27 +110,19 @@ public class AuthenticationController {
         // Now create the user object, store it in the DB and create session.
         User newUser = new User(
                 registerFormDTO.getUsername(),
-                registerFormDTO.getPassword(),
-                registerFormDTO.getEmail(),
-                registerFormDTO.getEmailVerified()git add
+                encoder.encode(password),
+                registerFormDTO.getEmail()
         );
 
-//                User newUser = new User(
-//                registerFormDTO.getUsername(),
-//                registerFormDTO.getPassword(),
-//                registerFormDTO.getEmail()
-//        );
-
         userRepository.save(newUser);
-//  TODO figure out whether or not to use userService when using userRepository
-//        userService.save(registerFormDTO);
 
         setUserInSession(request.getSession(), newUser);
 
         // return to the users/registration page with a Success message
-        return "redirect:users/register?success";
+//        return "redirect:users/register?success";
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         // send user to the next location
-//        return "redirect:";
+//        return "redirect:/login";
     }
 
     // login authentication
@@ -146,7 +143,7 @@ public class AuthenticationController {
 
 // TODO ask re: attributeName "title"
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
+//            model.addAttribute("title", "Log In");
             return "users/login";
         }
 
