@@ -41,7 +41,6 @@
         </div>
       </div>
 
-
       <div class="container">
         <div class="row">
           <div class="form-item col-4">
@@ -52,6 +51,19 @@
             </label>
             <p class="error"
                th:errors="${registrationFormDTO.verifyPassword}">
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="form-item col-4">
+            <label th:for="password">Email
+              <input th:field="${registrationFormDTO.email}" />
+            </label>
+            <p class="error"
+               th:errors="${registrationFormDTO.email}">
             </p>
           </div>
         </div>

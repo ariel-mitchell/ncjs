@@ -14,22 +14,37 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
+    private String email;
+
     public User() {}
 
-    public User(String username, String password) {
+//    public User(String username, String password) {
+//        this.username = username;
+//        this.pwHash = encoder.encode(password);
+//    }
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.pwHash = encoder.encode(password);
+        this.email = email;
     }
 
+    // getters and setters
     public String getUsername( ) {
         return username;
     }
 
+    public String getEmail( ) { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    // methods
     private static final BCryptPasswordEncoder encoder =
             new BCryptPasswordEncoder();
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
+
 
 }

@@ -90,7 +90,8 @@ public class AuthenticationController {
         // Save new username & password, start a new session, and redirect to home page
         User newUser = new User(
                 registrationFormDTO.getUsername(),
-                registrationFormDTO.getPassword());
+                registrationFormDTO.getPassword(),
+                registrationFormDTO.getEmail());
        userRepository.save(newUser);
        // since the user has just registered, no need to make them login
        // just set up the session
