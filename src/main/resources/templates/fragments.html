@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <title>Travel Diary</title>
+    <!-- Bootstrap stylesheets and script -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/traveldiary.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+</head>
+
+<body>
+    <header th:fragment="header">
+        <div id="mag"><b>Travel</b> Diary</div>
+        <div class="nav">
+        <th:block th:unless="${loggedIn}">
+            <a class="navLink" href="/login">Log In</a>
+            <a class="navLink" href="/register">Register</a>
+        </th:block>
+        <th:block th:if="${loggedIn}">
+            <!-- insert hrefs to allowed pages here -->
+            <a class="navLink" href="/Trips">Trips</a>
+            <a class="navLink" href="/profile">Profile</a>
+            <a class="navLink" href="/logout">Log Out</a>
+        </th:block>
+    </div>
+</header>
+    Is the next section even necessary?
+<div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a th:href="@{/}" class="navbar-brand">Travel Diary</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" >
+                <li><a th:href="@{/register}">Register</a></li>
+                <li><a th:href="@{/login}">Login</a></li>
+                <!--                <li><a th:href="@{/add}">Add Trips</a></li>-->
+                <!--                <li><a th:href="@{/search}">Search</a></li>-->
+                <!--                <li><a th:href="@{/profile}">Profile</a></li>-->
+                <li><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

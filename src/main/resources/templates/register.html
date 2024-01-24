@@ -1,0 +1,68 @@
+<!-- HTML registration form -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{fragments :: head}">
+  <meta charset="UTF-8">
+  <title>Account Registration</title>
+</head>
+<body>
+  <header th:replace="~{fragments :: header}"></header>
+
+  <main>
+    <h1>New User Registration</h1>
+
+    <form method="post">
+
+      <div class="container">
+        <div class="row">
+          <div class="form-item col-4">
+            <label th:for="username">Username
+              <input th:field="${registrationFormDTO.username}" />
+            </label>
+            <p class="error"
+               th:errors="${registrationFormDTO.username}">
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="form-item col-4">
+            <label th:for="password">Password
+              <input th:field="${registrationFormDTO.password}"
+                     type="password"
+              />
+            </label>
+            <p class="error"
+               th:errors="${registrationFormDTO.password}">
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="row">
+          <div class="form-item col-4">
+            <label th:for="password">Password
+              <input th:field="${registrationFormDTO.verifyPassword}"
+                     type="password"
+              />
+            </label>
+            <p class="error"
+               th:errors="${registrationFormDTO.verifyPassword}">
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit">Create Account</button>
+  </form>
+  <p class="mt-5">Already registered?
+    <a href="/login">Log In</a>
+  </p>
+</main>
+
+</body>
+</html>
