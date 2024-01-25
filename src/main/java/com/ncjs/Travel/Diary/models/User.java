@@ -18,11 +18,6 @@ public class User extends AbstractEntity {
 
     public User() {}
 
-//    public User(String username, String password) {
-//        this.username = username;
-//        this.pwHash = encoder.encode(password);
-//    }
-
     public User(String username, String password, String email) {
         this.username = username;
         this.pwHash = encoder.encode(password);
@@ -33,6 +28,8 @@ public class User extends AbstractEntity {
     public String getUsername( ) {
         return username;
     }
+// TODO - figure out why the compiler thinks this line needs a return statement
+    //    public String setUsername(String username) { this.username = username; }
 
     public String getEmail( ) { return email; }
     public void setEmail(String email) { this.email = email; }

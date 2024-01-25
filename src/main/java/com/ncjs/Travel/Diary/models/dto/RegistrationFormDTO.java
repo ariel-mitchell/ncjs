@@ -22,10 +22,10 @@ public class RegistrationFormDTO extends LoginFormDTO {
 
 
     public String getVerifyPassword( ) { return verifyPassword; }
-    // no need to set confirmPassword because we are not saving it?
-    public void setVerifyPassword(String verifyPassword) {
-        this.verifyPassword = verifyPassword;
-    }
+    // no need to set verifyPassword because we are not saving it
+//    public void setVerifyPassword(String verifyPassword) {
+//        this.verifyPassword = verifyPassword;
+//    }
 
     public String getEmail( ) { return email; }
     public void setEmail(String email) { this.email = email; }
