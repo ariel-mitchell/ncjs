@@ -7,22 +7,23 @@ import com.ncjs.Travel.Diary.models.PasswordSecurityQuestions;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     @Entity
-    public class User {
-    //setting password specific security questions to user in database as a 1:1
-    //setting it to "valid" to check the insides (specific questions) of the passwordsecurityquestions
-    //making it "Not null" to check that it is not null since it is necessary for mandatory password recovery service
+    public class User extends AbstractEntity {
+        //setting password specific security questions to user in database as a 1:1
+        //setting it to "valid" to check the insides (specific questions) of the passwordsecurityquestions
+        //making it "Not null" to check that it is not null since it is necessary for mandatory password recovery service
 
-//    @OneToMany
+        //    @OneToMany
 //    private Trip Trip; ????????????
-@Id
-@GeneratedValue
-public int id;
-        @OneToOne (cascade = CascadeType.ALL)
+        @Id
+        @GeneratedValue
+        public int id;
+        @OneToOne(cascade = CascadeType.ALL)
         @Valid
         private PasswordSecurityQuestions passwordSecurityQuestions;
-        @OneToOne (cascade = CascadeType.ALL)
-     @Valid
+        @OneToOne(cascade = CascadeType.ALL)
+        @Valid
         private PersonalQuestions personalQuestions;
         @NotNull
         private String username;
@@ -33,58 +34,60 @@ public int id;
         @NotNull
         private String email;
 
-        public User() {}
-        private Boolean verified;
+        public User() {
+        }
 
-        public User(int id, String username, String password, String email, Boolean verified) {
-            this.id = id;
+        public User(String username, String password, String email) {
             this.username = username;
-            this.pwHash = password;
+            this.pwHash = encoder.encode(password);
             this.email = email;
-            this.verified = false;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
         }
 
         public String getUsername() {
             return username;
         }
+
         public void setUsername(String username) {
             this.username = username;
         }
-        public String getPwHash() {
-            return pwHash;
-        }
-        public void setPwHash(String pwHash) {
-            this.pwHash = pwHash;
-        }
+//        public String getPwHash() {
+//            return pwHash;
+//        }
+//        public void setPwHash(String pwHash) {
+//            this.pwHash = pwHash;
+//        }
 
         public String getEmail() {
             return email;
         }
+
         public void setEmail(String email) {
             this.email = email;
         }
 
-        public Boolean getVerified( ) { return verified; }
-        public void setVerified(Boolean verified) { this.verified = verified; }
 
         public PasswordSecurityQuestions getPasswordSecurityQuestions() {
             return passwordSecurityQuestions;
         }
+
         public void setPasswordSecurityQuestions(PasswordSecurityQuestions passwordSecurityQuestions) {
             this.passwordSecurityQuestions = passwordSecurityQuestions;
         }
+
         public PersonalQuestions getPersonalQuestions() {
             return personalQuestions;
         }
+
         public void setPersonalQuestions(PersonalQuestions personalQuestionsQuestions) {
             this.personalQuestions = personalQuestions;
         }
+
+        // methods
+        private static final BCryptPasswordEncoder encoder =
+                new BCryptPasswordEncoder();
+
+        public boolean isMatchingPassword(String password) {
+            return encoder.matches(password, pwHash);
+        }
+
     }

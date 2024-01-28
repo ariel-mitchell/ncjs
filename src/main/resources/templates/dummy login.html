@@ -14,21 +14,55 @@
 <div>
     <a href="/recovery/ForgotPassword">Forgot Password?</a>
 </div>
-
-<form method="post" style="max-width:600px;">
-    <div class="form-group">
-        <label th:for="username">Username</label>
-        <input class="form-control" th:field="${user.username}" />
-        <span th:errors="${user.username}" class="error"></span>
+<!--cheri's part-->
+<form method="post">
+    <div class="container">
+        <div class="row">
+            <div class="form-item col-4">
+                <label th:for="username">Username
+                    <input th:field="${loginFormDTO.username}" />
+                </label>
+                <p class="error"
+                   th:errors="${loginFormDTO.username}">
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="form-item col-4">
+                <label th:for="password">Password
+                    <input th:field="${loginFormDTO.password}"
+                           type="password"
+                    />
+                </label>
+                <p class="error"
+                   th:errors="${loginFormDTO.password}">
+                </p>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label th:for="password">Password</label>
-        <input class="form-control" th:field="${user.password}" />
-        <span th:errors="${user.password}" class="error"></span>
-    </div>
-    <input type="submit" value="Log in" />
+    <button type="submit">Log In</button>
 </form>
+<p class="mt-5">Don't have an account?
+    <a href="/register">Create one</a>
+</p>
+
+<!--<form method="post" style="max-width:600px;">-->
+<!--    <div class="form-group">-->
+<!--        <label th:for="username">Username</label>-->
+<!--        <input class="form-control" th:field="${user.username}" />-->
+<!--        <span th:errors="${user.username}" class="error"></span>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--        <label th:for="password">Password</label>-->
+<!--        <input class="form-control" th:field="${user.password}" />-->
+<!--        <span th:errors="${user.password}" class="error"></span>-->
+<!--    </div>-->
+<!--    <input type="submit" value="Log in" />-->
+<!--</form>-->
 
 </body>
 </html>
