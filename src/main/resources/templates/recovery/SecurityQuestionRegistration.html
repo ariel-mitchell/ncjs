@@ -24,12 +24,17 @@
 </head>
 <body class="container body-content">
 
+<br>
+<p>Already registered?
+    <a href="/" th:href="@{/users/login}">Login</a>
+</p>
+
 <!-- HTML registration form -->
 <h1>New User Registration</h1>
 
 <!-- <form method="post" style="max-width:600px;"> -->
 <form method="post"
-      th:action="@{/register}"
+      th:action="@{/user/register}"
       th:object="${user}"
 >
     <div class="form-group">
@@ -60,12 +65,12 @@
         <label>Confirm Password
             <input class="form-control"
                    type="password"
-                   th:field="${registerFormDTO.confirmPassword}"
+                   th:field="${registerFormDTO.verifyPassword}"
                    required autofocus="autofocus"
             />
         </label>
         <p class="error"
-           th:errors="${registerFormDTO.confirmPassword}"
+           th:errors="${registerFormDTO.verifyPassword}"
            style="color:red;">
         </p>
     </div>
@@ -81,34 +86,26 @@
            style="color:red;">
         </p>
     </div>
-</form>
-
-<br>
-<p>Already registered?
-    <a href="/" th:href="@{/users/login}">Login</a>
-</p>
 
 <h1>Security  Questions</h1>
 
 <!--<nav th:replace="~{fragments :: page-header}"></nav>-->
-
-<form method="post" style="max-width:600px;">
     <div class="form-group">
         <label th:for="momMaidenName">What is your mother's maiden name?</label>
-        <input class="form-control" th:field="${user.passwordSecurityQuestionsmomMaidenName}" />
-        <span th:errors="${user.passwordSecurityQuestions.momMaidenName}" class="error"></span>
+        <input class="form-control" th:field="${registerFormDTO.passwordSecurityQuestions.momMaidenName}" />
+        <span th:errors="${registerFormDTO.passwordSecurityQuestions.momMaidenName}" class="error"></span>
     </div>
 
     <div class="form-group">
         <label th:for="birthLocation">What was the location of your birth?</label>
-        <input class="form-control" th:field="${user.passwordSecurityQuestions.birthLocation}" />
-        <span th:errors="${user.passwordSecurityQuestions.birthLocation}" class="error"></span>
+        <input class="form-control" th:field="${registerFormDTO.passwordSecurityQuestions.birthLocation}" />
+        <span th:errors="${registerFormDTO.passwordSecurityQuestions.birthLocation}" class="error"></span>
     </div>
 
     <div class="form-group">
         <label th:for="firstKiss">What was the name of your first kiss?</label>
-        <input class="form-control" th:field="${user.passwordSecurityQuestions.firstKiss}" />
-        <span th:errors="${user.passwordSecurityQuestions.firstKiss}" class="error"></span>
+        <input class="form-control" th:field="${registerFormDTO.passwordSecurityQuestions.firstKiss}" />
+        <span th:errors="${registerFormDTO.passwordSecurityQuestions.firstKiss}" class="error"></span>
     </div>
     <!--    <div class="form-group">-->
     <!--        <label th:for="birthday">What is your birthday (Month/Day/Year) </label>-->
@@ -129,13 +126,13 @@
     <!--    </div>-->
     <div class="form-group">
         <label th:for="firstLocation">What was the location of your first memory?</label>
-        <input class="form-control" th:field="${user.passwordSecurityQuestions.firstLocation}" />
-        <span th:errors="${user.passwordSecurityQuestions.firstLocation}" class="error"></span>
+        <input class="form-control" th:field="${registerFormDTO.passwordSecurityQuestions.firstLocation}" />
+        <span th:errors="${registerFormDTO.passwordSecurityQuestions.firstLocation}" class="error"></span>
     </div>
     <div class="form-group">
         <label th:for="firstWord">What was your first word as a baby or child?</label>
-        <input class="form-control" th:field="${user.passwordSecurityQuestions.firstWord}" />
-        <span th:errors="${user.passwordSecurityQuestions.firstWord}" class="error"></span>
+        <input class="form-control" th:field="${registerFormDTO.passwordSecurityQuestions.firstWord}" />
+        <span th:errors="${registerFormDTO.passwordSecurityQuestions.firstWord}" class="error"></span>
     </div>
 
     <input type="submit"

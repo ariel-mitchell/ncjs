@@ -1,6 +1,7 @@
 //Cheri's Code
 package com.ncjs.Travel.Diary.dto;
 
+import com.ncjs.Travel.Diary.models.PasswordSecurityQuestions;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,20 @@ public class RegistrationFormDTO extends LoginFormDTO {
     @Email(message = "Invalid email. Try again.")
     private String email;
 
+    public void setVerifyPassword(String verifyPassword) {
+        this.verifyPassword = verifyPassword;
+    }
+
+    public PasswordSecurityQuestions getPasswordSecurityQuestions() {
+        return passwordSecurityQuestions;
+    }
+
+    public void setPasswordSecurityQuestions(PasswordSecurityQuestions passwordSecurityQuestions) {
+        this.passwordSecurityQuestions = passwordSecurityQuestions;
+    }
+
+    @NotNull (message ="Answers are required for registration.")
+    private PasswordSecurityQuestions passwordSecurityQuestions;
 
     public String getVerifyPassword( ) { return verifyPassword; }
     // no need to set verifyPassword because we are not saving it

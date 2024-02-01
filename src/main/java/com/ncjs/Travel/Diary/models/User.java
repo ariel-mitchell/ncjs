@@ -37,10 +37,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         public User() {
         }
 
-        public User(String username, String password, String email) {
+        public User(String username, String password, String email,PasswordSecurityQuestions passwordSecurityQuestions) {
             this.username = username;
             this.pwHash = encoder.encode(password);
             this.email = email;
+            this.passwordSecurityQuestions = passwordSecurityQuestions;
         }
 
         public String getUsername() {

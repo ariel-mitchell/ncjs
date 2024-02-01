@@ -1,12 +1,10 @@
-//Cheri's code
+////Cheri's code
 package com.ncjs.Travel.Diary.controllers;
 
 import com.ncjs.Travel.Diary.data.UserRepository;
 import com.ncjs.Travel.Diary.dto.LoginFormDTO;
 import com.ncjs.Travel.Diary.dto.RegistrationFormDTO;
 import com.ncjs.Travel.Diary.models.User;
-//import com.ncjs.Travel.Diary.models.dto.LoginFormDTO;
-//import com.ncjs.Travel.Diary.models.dto.RegistrationFormDTO;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("user")
 public class AuthenticationController {
 
     @Autowired  // Gives the user access to the database
@@ -41,10 +39,14 @@ public class AuthenticationController {
     // locates the user object in the database
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
-        if (userId == null) { return null; }
+        if (userId == null) {
+            return null;
+        }
         // holds the user object IF one exists
         Optional<User> userOpt = userRepository.findById(userId);
-        if (userOpt.isEmpty()) { return null; }
+        if (userOpt.isEmpty()) {
+            return null;
+        }
         return userOpt.get();
     }
 
@@ -52,22 +54,23 @@ public class AuthenticationController {
     // registration authentication
     @GetMapping("/register")
     public String displayRegistrationForm(Model model, HttpSession session) {
-        model.addAttribute(new RegistrationFormDTO());
+        model.addAttribute("registerFormDTO", new RegistrationFormDTO());
         // send value of loggedIn to fragments.html
         model.addAttribute(
                 "LoggedIn",
                 session.getAttribute(userSessionKey) != null);
-        return "register";
+        return "recovery/SecurityQuestionRegistration";
     }
 
     @PostMapping("/register")
     public String processRegistrationForm(
             @ModelAttribute @Valid RegistrationFormDTO registrationFormDTO,
-            Errors errors,
+            Errors errors, Model model,
             HttpServletRequest request) {
         // Send user back to form if errors are found
         if (errors.hasErrors()) {
-            return "register";
+            model.addAttribute("registerFormDTO",registrationFormDTO);
+            return "recovery/SecurityQuestionRegistration";
         }
 
         User existingUser =
@@ -78,7 +81,7 @@ public class AuthenticationController {
                     "username",
                     "username.alreadyExists",
                     "A user with that username already exists");
-            return "register";
+            return "recovery/SecurityQuestionRegistration";
         }
 
         String password = registrationFormDTO.getPassword();
@@ -88,69 +91,70 @@ public class AuthenticationController {
                     "password",
                     "passwords.mismatch",
                     "Passwords do not match");
-            return "register";
+            return "recovery/SecurityQuestionRegistration";
         }
 
         // Save new username & password, start a new session, and redirect to home page
         User newUser = new User(
                 registrationFormDTO.getUsername(),
                 registrationFormDTO.getPassword(),
-                registrationFormDTO.getEmail());
+                registrationFormDTO.getEmail(),
+                registrationFormDTO.getPasswordSecurityQuestions());
         userRepository.save(newUser);
         // since the user has just registered, no need to make them login
         // just set up the session
-        setUserInSession(request.getSession(),  newUser);
+        setUserInSession(request.getSession(), newUser);
         // TODO: modify this redirect to send user to where they can add/view trips?
         // return "redirect:/trips";
-        return "redirect:";
+        return "outside_index";
     }
-
-    // login authentication
-    @GetMapping("/login")
-    public String displayLoginForm(Model model, HttpSession session) {
-        model.addAttribute(new LoginFormDTO());
-        // send value of loggedIn to fragments.html
-        model.addAttribute(
-                "LoggedIn",
-                session.getAttribute(userSessionKey) != null);
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String processLoginForm(
-            @ModelAttribute @Valid LoginFormDTO loginFormDTO,
-            Errors errors,
-            HttpServletRequest request) {
-        if (errors.hasErrors()) {
-            return "login";
-        }
-
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
-
-        String password = loginFormDTO.getPassword();
-
-        // See if password the user just gave us matches what is in the database
-        if (theUser == null || !theUser.isMatchingPassword(password)) {
-            errors.rejectValue(
-                    "password",
-                    "login.invalid",
-                    "Credentials invalid. Please try again with correct username/password combination."
-            );
-            return "login";
-        }
-
-        setUserInSession(request.getSession(), theUser);
-        // TODO: modify this redirect to send user to where they can add/view trips?
-        // return "redirect:/trips";
-        return "redirect:";
-
-    }
-
-    // Logging out
-    @GetMapping("logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "redirect:/login";   // send back to login form
-    }
-
 }
+//    // login authentication
+//    @GetMapping("/login")
+//    public String displayLoginForm(Model model, HttpSession session) {
+//        model.addAttribute(new LoginFormDTO());
+//        // send value of loggedIn to fragments.html
+//        model.addAttribute(
+//                "LoggedIn",
+//                session.getAttribute(userSessionKey) != null);
+//        return "login";
+//    }
+//
+//    @PostMapping("/login")
+//    public String processLoginForm(
+//            @ModelAttribute @Valid LoginFormDTO loginFormDTO,
+//            Errors errors,
+//            HttpServletRequest request) {
+//        if (errors.hasErrors()) {
+//            return "login";
+//        }
+//
+//        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+//
+//        String password = loginFormDTO.getPassword();
+//
+//        // See if password the user just gave us matches what is in the database
+//        if (theUser == null || !theUser.isMatchingPassword(password)) {
+//            errors.rejectValue(
+//                    "password",
+//                    "login.invalid",
+//                    "Credentials invalid. Please try again with correct username/password combination."
+//            );
+//            return "login";
+//        }
+//
+//        setUserInSession(request.getSession(), theUser);
+//        // TODO: modify this redirect to send user to where they can add/view trips?
+//        // return "redirect:/trips";
+//        return "redirect:";
+//
+//    }
+//
+//    // Logging out
+//    @GetMapping("logout")
+//    public String logout(HttpServletRequest request) {
+//        request.getSession().invalidate();
+//        return "redirect:/login";   // send back to login form
+//    }
+//
+//}

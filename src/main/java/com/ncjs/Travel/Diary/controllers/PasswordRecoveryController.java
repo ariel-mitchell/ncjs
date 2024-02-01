@@ -6,7 +6,7 @@
 //(2) Password reset and repeat new password must match
 //(3) Password must be at least 1 character
 package com.ncjs.Travel.Diary.controllers;
-import com.ncjs.Travel.Diary.models.PasswordError;
+//import com.ncjs.Travel.Diary.models.PasswordError;
 import com.ncjs.Travel.Diary.models.User;
 import com.ncjs.Travel.Diary.data.UserRepository;
 import jakarta.validation.Valid;

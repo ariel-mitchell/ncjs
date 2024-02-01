@@ -1,6 +1,7 @@
 package com.ncjs.Travel.Diary.models;
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +11,7 @@ import java.util.Objects;
 @MappedSuperclass
 public class AbstractEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 //    @NotBlank(message = "Name is required")
 //    @Size(min = 3, max = 150, message = "Name must be between 3 and 150 characters long")
