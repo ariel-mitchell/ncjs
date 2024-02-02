@@ -7,6 +7,8 @@
 //(3) Password must be at least 1 character
 package com.ncjs.Travel.Diary.controllers;
 //import com.ncjs.Travel.Diary.models.PasswordError;
+import com.ncjs.Travel.Diary.dto.PasswordRecoveryDTO;
+import com.ncjs.Travel.Diary.dto.RegistrationFormDTO;
 import com.ncjs.Travel.Diary.models.User;
 import com.ncjs.Travel.Diary.data.UserRepository;
 import jakarta.validation.Valid;
@@ -68,25 +70,28 @@ public class PasswordRecoveryController {
         model.addAttribute("title", "Forgot Password?");
         return "recovery/ForgotPassword";
     }
-//processing request username form
-    @PostMapping ("recovery/ForgotPassword")
+
+    //processing request username form
+    @PostMapping("recovery/ForgotPassword")
     public String processForgotPasswordForm(@RequestParam String submitUsername, Model model) {
         Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(submitUsername));
         if (optUser.isEmpty()) {
             return "redirect:recovery/ForgotPassword";
         } else {
             User user = optUser.get();
-            model.addAttribute("user",user);
-            return "recovery/ResetPasswordWithSecurityQuestions";
+            model.addAttribute("user", user);
+            return "redirect:./resetPassword";
         }
     }
+
     //new password form
     @GetMapping("recovery/resetPassword")
-    public String displayResetPasswordForm(Model model) {
+    public String displayResetPasswordForm(Model model, Error errors, User user, String submitUsername) {
+        model.addAttribute("user", user);
         model.addAttribute("title", "Reset Password");
+        model.addAttribute("Error", "Invalid response");
         return "recovery/ResetPasswordWithSecurityQuestions";
     }
-
 
 
 // verify that all answers are from the user we set before
@@ -112,26 +117,31 @@ public class PasswordRecoveryController {
     //          "Incorrect filename : " + fileName , err);
     //    }
     //    custom error! Make sure the thymeleaf error name is the same as the variable in this controller
-//    @PostMapping("recovery/resetPassword")
-//    public String processResetPasswordForm(@RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss,
-//                                           @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword,
-//                                           PasswordError error, Model model) {
-//        try
-//        {
-//            if(user.PasswordSecurityQuestions.momMaidenName = )
-//            {
-//                throw new PasswordError("Not a valid response.");
-//            }
-//        }
-//        catch(PasswordError )
-//        {
-//            // Process message however you would like
-//        }
+    @PostMapping("recovery/resetPassword")
+    public String processResetPasswordForm(Model model, @RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss,
+                                           @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword,
+                                           @RequestParam User user, Errors errors) {
+//       User user = userRepository.findByUsername(submitUsername);
+        if (errors.hasErrors()) {
+            return "recovery/ResetPasswordWithSecurityQuestions";
+        }
+        if (!user.getPasswordSecurityQuestions().getMomMaidenName().toLowerCase().equals(momMaidenName.toLowerCase()) ||
+                !user.getPasswordSecurityQuestions().getBirthLocation().toLowerCase().equals(birthLocation.toLowerCase()) ||
+                !user.getPasswordSecurityQuestions().getFirstKiss().toLowerCase().equals(firstKiss.toLowerCase()) ||
+                !user.getPasswordSecurityQuestions().getFirstLocation().toLowerCase().equals(firstLocation.toLowerCase()) ||
+                !user.getPasswordSecurityQuestions().getFirstWord().toLowerCase().equals(firstWord.toLowerCase())) {
+            model.addAttribute("errorMsg", "Invalid Response");
+            return "recovery/ResetPasswordWithSecurityQuestions";
+        }
+        if (!resetPassword.equals(repeatNewPassword)) {
+            errors.rejectValue(
+                    "password",
+                    "passwords.mismatch",
+                    "Passwords do not match");
+            return "recovery/SecurityQuestionRegistration";
+        }
+        user.resetPassword(resetPassword);
+        userRepository.save(user);
+        return "outside_index";
     }
-//        error
-//        if (errors.hasErrors()) {
-//            return "recovery/ResetPasswordWithSecurityQuestions";
-//        }
-////        UserRepository.save(submitUsername);
-//        return "redirect:";
-//    }
+}

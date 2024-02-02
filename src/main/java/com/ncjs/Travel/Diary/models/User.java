@@ -54,9 +54,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //        public String getPwHash() {
 //            return pwHash;
 //        }
-//        public void setPwHash(String pwHash) {
-//            this.pwHash = pwHash;
-//        }
+        public void resetPassword(String password) {
+            this.pwHash = encoder.encode(password);
+        }
 
         public String getEmail() {
             return email;
