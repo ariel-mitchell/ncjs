@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Optional;
 
@@ -56,6 +57,7 @@ import java.util.Optional;
 //1) find out how she's hashing passwords and what she does to set these passwords in the database
 //then just replicate that process
 @Controller
+@SessionAttributes("submitUsername")
 //@RequestMapping("/recovery")
 public class PasswordRecoveryController {
 
@@ -73,20 +75,26 @@ public class PasswordRecoveryController {
 
     //processing request username form
     @PostMapping("recovery/ForgotPassword")
-    public String processForgotPasswordForm(@RequestParam String submitUsername, Model model) {
+    public String processForgotPasswordForm(Model model, @RequestParam String submitUsername) {
+        model.addAttribute("submitUsername", submitUsername);
         Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(submitUsername));
         if (optUser.isEmpty()) {
             return "redirect:recovery/ForgotPassword";
+//            status.setComplete();
         } else {
             User user = optUser.get();
             model.addAttribute("user", user);
+            System.out.println("User is + " + user.getUsername() + " Input user is + " + submitUsername);
             return "redirect:./resetPassword";
         }
     }
 
     //new password form
     @GetMapping("recovery/resetPassword")
-    public String displayResetPasswordForm(Model model, Error errors, User user, String submitUsername) {
+    public String displayResetPasswordForm(Model model, Error errors) {
+        String currUsername = (String) model.getAttribute("submitUsername");
+        Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(currUsername));
+        System.out.println("RESETPASSWORD User is + " + optUser.get().getUsername() + " Input user is + " + currUsername);
         model.addAttribute("user", user);
         model.addAttribute("title", "Reset Password");
         model.addAttribute("Error", "Invalid response");
@@ -118,11 +126,14 @@ public class PasswordRecoveryController {
     //    }
     //    custom error! Make sure the thymeleaf error name is the same as the variable in this controller
     @PostMapping("recovery/resetPassword")
-    public String processResetPasswordForm(Model model, @RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss,
-                                           @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword,
-                                           @RequestParam User user, Errors errors) {
-//       User user = userRepository.findByUsername(submitUsername);
-        if (errors.hasErrors()) {
+    public String processResetPasswordForm(Model model, Error errors, @RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss, @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword, SessionStatus status) {
+        String currUsername = (String) model.getAttribute("submitUsername");
+        Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(currUsername));
+        User user = optUser.get();
+//        model.addAttribute("user", user);
+//        if (errors.hasErrors()) {
+        if(errors.equals(1)) {
+            System.out.println("EQUALS1");
             return "recovery/ResetPasswordWithSecurityQuestions";
         }
         if (!user.getPasswordSecurityQuestions().getMomMaidenName().toLowerCase().equals(momMaidenName.toLowerCase()) ||
@@ -134,14 +145,16 @@ public class PasswordRecoveryController {
             return "recovery/ResetPasswordWithSecurityQuestions";
         }
         if (!resetPassword.equals(repeatNewPassword)) {
-            errors.rejectValue(
-                    "password",
-                    "passwords.mismatch",
-                    "Passwords do not match");
-            return "recovery/SecurityQuestionRegistration";
+//            errors.rejectValue(
+//                    "password",
+//                    "passwords.mismatch",
+            System.out.println("Passwords do not match ***ADD TO THYMELEAF");
+            return "recovery/ResetPasswordWithSecurityQuestions";
         }
         user.resetPassword(resetPassword);
         userRepository.save(user);
+        status.setComplete();
+        System.out.println(user.getPwHash());
         return "outside_index";
     }
 }
