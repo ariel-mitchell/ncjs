@@ -54,29 +54,6 @@ public class SearchController {
     }
 ////This processes the searchbar bar form and displays the results @localhost:8080/search/index
     //it returns the template index html file which is in search folder
-    //@ModelAttribute @Valid triptagDTO tripTag,
-//    // TODO #3 - Create a handler to process a search request and render the updated search view.
-//    @PostMapping("index")
-//    public String displaySearchResults(Model model, @RequestParam String searchTerm){
-//        ArrayList<Trip> trips = null;
-//        Iterable<Trip> allTrips = tripRepository.findAll();
-//        System.out.println(allTrips);
-//        if (searchTerm.toLowerCase().equals("all") || searchTerm.equals("")){
-//            System.out.println(allTrips);
-//            model.addAttribute("trips", allTrips);
-//        } else {
-//            for (Trip trip : allTrips) {
-//                if(trip.getTags().contains(searchTerm)) {
-//                    trips.add(trip);
-//                }
-//        }
-//            System.out.println(trips);
-//            model.addAttribute("trips", trips);
-//        }
-//        model.addAttribute("All Trips", tripRepository.findAll());
-//        model.addAttribute("title", "Trips with " + searchTerm);
-//        return "search/index";
-//    }
 }
 
 

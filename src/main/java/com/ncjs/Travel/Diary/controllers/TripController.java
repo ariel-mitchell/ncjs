@@ -32,17 +32,6 @@ public class TripController {
         return "trips/index";
     }
 
-//    @GetMapping("/")
-//    public String displayHomePage(Model model) {
-//        Iterable<Trip> trips = tripRepository.findAll();
-//        for (Trip trips : trips) {
-//            // Fetch tags for each trips to avoid lazy loading issues
-//            trips.getTags().size(); // This triggers the loading of tags
-//        }
-//        model.addAttribute("tripList", trips);
-//        return "trips/index";
-//    }
-
 //Nidia's add trips form
     @GetMapping("add")
     public String addTripPage(Model model) {
@@ -61,22 +50,6 @@ public class TripController {
         tripRepository.save(trip);
         return "trips/index";
     }
-//    @PostMapping("add")
-//        public String renderTripDescription(@ModelAttribute Trip trips) {
-//        tripRepository.save(trips);
-//        return "redirect:/trips";
-
-
-
-//    public String processCreateTagForm(@ModelAttribute @Valid Trip trips,
-//                                       Errors errors, Model model) {
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Create Trip");
-//            model.addAttribute(trips);
-//            return "trips/form";
-//        }
-//        tripRepository.save(new Trip(trips.getName));
-//        return "trips/index";
 
 //Nidia's delete trips form
     @GetMapping("delete")
@@ -137,12 +110,11 @@ if (!errors.hasErrors()) {
         trip.addTag(tag);
         tripRepository.save(trip);
     }
-    //idk where to redirect but I'm getting to the index or add trips?
     return "redirect:/trips";
 }
 return "redirect:/trips";
     }
 }
-//mapping is when we are redirecting,
+//mapping = redirecting,
 // //when we return redirect we are returning to the url which is read through the get and post request mapping
 //when returning something like index or add, it will return the templates

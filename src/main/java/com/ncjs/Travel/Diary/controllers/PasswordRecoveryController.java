@@ -6,7 +6,6 @@
 //(2) Password reset and repeat new password must match
 //(3) Password must be at least 1 character
 package com.ncjs.Travel.Diary.controllers;
-//import com.ncjs.Travel.Diary.models.PasswordError;
 import com.ncjs.Travel.Diary.dto.PasswordRecoveryDTO;
 import com.ncjs.Travel.Diary.dto.RegistrationFormDTO;
 import com.ncjs.Travel.Diary.models.User;
@@ -84,7 +83,7 @@ public class PasswordRecoveryController {
         } else {
             User user = optUser.get();
             model.addAttribute("user", user);
-            System.out.println("User is + " + user.getUsername() + " Input user is + " + submitUsername);
+            //System.out.println("User is + " + user.getUsername() + " Input user is + " + submitUsername);
             return "redirect:./resetPassword";
         }
     }
@@ -94,14 +93,12 @@ public class PasswordRecoveryController {
     public String displayResetPasswordForm(Model model, Error errors) {
         String currUsername = (String) model.getAttribute("submitUsername");
         Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(currUsername));
-        System.out.println("RESETPASSWORD User is + " + optUser.get().getUsername() + " Input user is + " + currUsername);
+       // System.out.println("RESETPASSWORD User is + " + optUser.get().getUsername() + " Input user is + " + currUsername);
         model.addAttribute("user", user);
         model.addAttribute("title", "Reset Password");
         model.addAttribute("Error", "Invalid response");
         return "recovery/ResetPasswordWithSecurityQuestions";
     }
-
-
 // verify that all answers are from the user we set before
     //verify that all of their security questions are answered correctly AKA compare to registration security questions already set in the userrepository
     //verify that the resetpassword and repeatnewpassword are the same --> make sure that it is changed
@@ -112,19 +109,6 @@ public class PasswordRecoveryController {
     // initalize error as a variable in this handler
     //validatation using string but ideally error --> set error messages
 
-
-    //try (Scanner file = new Scanner(new File(fileName))) {
-    //    if (file.hasNextLine()) {
-    //        return file.nextLine();
-    //    } else {
-    //        throw new IllegalArgumentException("Non readable file");
-    //    }
-    //} catch (FileNotFoundException err) {
-    //    if (!isCorrectFileName(fileName)) {
-    //        throw new IncorrectFileNameException(
-    //          "Incorrect filename : " + fileName , err);
-    //    }
-    //    custom error! Make sure the thymeleaf error name is the same as the variable in this controller
     @PostMapping("recovery/resetPassword")
     public String processResetPasswordForm(Model model, Error errors, @RequestParam String momMaidenName, @RequestParam String birthLocation, @RequestParam String firstKiss, @RequestParam String firstLocation, @RequestParam String firstWord, @RequestParam String resetPassword, @RequestParam String repeatNewPassword, SessionStatus status) {
         String currUsername = (String) model.getAttribute("submitUsername");
@@ -133,7 +117,7 @@ public class PasswordRecoveryController {
 //        model.addAttribute("user", user);
 //        if (errors.hasErrors()) {
         if(errors.equals(1)) {
-            System.out.println("EQUALS1");
+            //System.out.println("EQUALS1");
             return "recovery/ResetPasswordWithSecurityQuestions";
         }
         if (!user.getPasswordSecurityQuestions().getMomMaidenName().toLowerCase().equals(momMaidenName.toLowerCase()) ||
@@ -154,7 +138,7 @@ public class PasswordRecoveryController {
         user.resetPassword(resetPassword);
         userRepository.save(user);
         status.setComplete();
-        System.out.println(user.getPwHash());
+        System.out.println("\n\n The current password hash for " + user + "is: " + user.getPwHash() + "\n\n");
         return "outside_index";
     }
 }
