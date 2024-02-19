@@ -16,6 +16,9 @@ import java.sql.Blob;
 @Entity
 public class Trip extends AbstractEntity {
 
+    @Id
+    @GeneratedValue
+    public int id;
     @Size(min = 1, max = 50)
     @NotBlank
     private String name;
