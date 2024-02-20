@@ -54,7 +54,7 @@ public class SearchController {
     }
 ////This processes the searchbar bar form and displays the results @localhost:8080/search/index
     //it returns the template index html file which is in search folder
+    //Creating a List of all Trips, when the serachterm is "all" or ""
+    //but if not, it creates a new arraylit of trips and for each tag associated in the trip(trip.getTags) and each trip in all trips, we add the
+    //trips that contain the serachterm(case insensitive) to to the arraylist of trips.
 }
-
-
-//fix to my specifications: change all columns, we are only searching by name

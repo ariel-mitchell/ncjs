@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
+// this controller is largely Cheri's work. It is to design the user creation and creates user sessions allowing for login and also
+// registration of users. Largely, it outlines what a password can be, how to create a user and their session, makes sure that
+// users' username and password are paired together in the RegistrationFormDTO and further in the LoginForm DTO.
+// I have taken the registration part and provided the redirection for users to create their own answers to required security questions.
 
 @Controller
 @RequestMapping("user")

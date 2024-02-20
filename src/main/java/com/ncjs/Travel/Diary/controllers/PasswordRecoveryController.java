@@ -78,7 +78,7 @@ public class PasswordRecoveryController {
         model.addAttribute("submitUsername", submitUsername);
         Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(submitUsername));
         if (optUser.isEmpty()) {
-            return "redirect:recovery/ForgotPassword";
+            return "redirect:./ForgotPassword";
 //            status.setComplete();
         } else {
             User user = optUser.get();
@@ -125,13 +125,16 @@ public class PasswordRecoveryController {
                 !user.getPasswordSecurityQuestions().getFirstKiss().toLowerCase().equals(firstKiss.toLowerCase()) ||
                 !user.getPasswordSecurityQuestions().getFirstLocation().toLowerCase().equals(firstLocation.toLowerCase()) ||
                 !user.getPasswordSecurityQuestions().getFirstWord().toLowerCase().equals(firstWord.toLowerCase())) {
-            model.addAttribute("errorMsg", "Invalid Response");
+            //model.addAttribute("errorMsg", "Invalid Response");
             return "recovery/ResetPasswordWithSecurityQuestions";
         }
         if (!resetPassword.equals(repeatNewPassword)) {
 //            errors.rejectValue(
 //                    "password",
 //                    "passwords.mismatch",
+            // Please Make sure for Later: Change accepted Password Characters to be no less than 6 and no more than 20
+           //would look like: else if (resetPassword.length() < 6 || resetPassword.length() > 20) {
+            //return "recovery/ResetPasswordWithSecurityQuestions"; }
             System.out.println("Passwords do not match ***ADD TO THYMELEAF");
             return "recovery/ResetPasswordWithSecurityQuestions";
         }
